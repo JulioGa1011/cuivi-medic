@@ -20,6 +20,7 @@ dependencies:
   dio: ^4.0.6
   flutter_dotenv: ^5.0.2
   flutter_launcher_icons: ^0.10.0
+  image_picker: ^0.8.5+3
   logger: ^1.1.0
   page_transition: ^2.0.9
   provider: ^6.0.3
@@ -27,6 +28,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   syncfusion_flutter_calendar: ^20.2.43
   table_calendar: ^3.0.6
+  url_launcher: ^6.1.5
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -61,6 +63,7 @@ flutter:
   assets:
     - assets/icons/bot_nav_bar/
     - assets/images/
+    - assets/images/tutorial/
     - .env
   #   - images/a_dot_ham.jpeg
 
