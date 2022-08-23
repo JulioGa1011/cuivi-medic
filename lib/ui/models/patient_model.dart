@@ -14,6 +14,8 @@ class PatientModel {
     this.name,
     this.phone,
     this.id,
+    this.email,
+    this.photo,
     this.patientId,
     this.formattedCreatedAt,
     this.formattedUpdatedAt,
@@ -22,6 +24,8 @@ class PatientModel {
   String? name;
   String? phone;
   int? id;
+  String? email;
+  String? photo;
   int? patientId;
   String? formattedCreatedAt;
   String? formattedUpdatedAt;
@@ -30,6 +34,8 @@ class PatientModel {
         name: json["name"],
         phone: json["phone"],
         id: json["id"],
+        email: json["email"],
+        photo: json["photo"],
         patientId: json["patient_id"],
         formattedCreatedAt: json["formatted_created_at"],
         formattedUpdatedAt: json["formatted_updated_at"],
@@ -39,6 +45,8 @@ class PatientModel {
         "name": name,
         "phone": phone,
         "id": id,
+        "email": email,
+        "photo": photo,
         "patient_id": patientId,
         "formatted_created_at": formattedCreatedAt,
         "formatted_updated_at": formattedUpdatedAt,

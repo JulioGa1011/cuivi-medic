@@ -1,10 +1,12 @@
 import 'package:cuivi_medic/light_theme.dart';
 import 'package:cuivi_medic/routes.dart';
+import 'package:cuivi_medic/ui/home/home_screen.dart';
 import 'package:cuivi_medic/ui/home/screens/tutorial_screen.dart';
 import 'package:cuivi_medic/ui/home/tutoria_page.dart';
 import 'package:cuivi_medic/ui/providers/appointment_provider.dart';
 import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
 import 'package:cuivi_medic/ui/providers/patient_provider.dart';
+import 'package:cuivi_medic/ui/providers/types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PatientProvider()),
         ChangeNotifierProvider(create: (_) => AppointmentProvider()),
         ChangeNotifierProvider(create: (_) => DoctorProvider()),
+        ChangeNotifierProvider(create: (_) => TypesProvider()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
@@ -78,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             if (token == null || token == '') {
               return const TutorialScreen();
             } else {
-              return const TutorialPage();
+              return const HomeScreen();
             }
           }
         }

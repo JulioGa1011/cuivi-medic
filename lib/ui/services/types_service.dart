@@ -3,15 +3,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/dio_configuration.dart';
 
-class PatientServices {
-  Future<Response> getPatients(context) async {
+class TypesServices {
+  Future<Response> bloodTypes(context) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('access_token');
     var dio = DioConfiguration(context).createDio();
     dio.options.headers['Authorization'] = 'Bearer $accessToken';
     try {
-      Response response = await dio.get('medic/patients', queryParameters: {
-        'columns': '["name","phone"]',
+      Response response = await dio.get('blood-types', queryParameters: {
+        'columns': '["id","name"]',
       });
       return response;
     } on DioError {
@@ -19,16 +19,15 @@ class PatientServices {
     }
   }
 
-  Future<Response> patientInformation(context, patientId) async {
+  Future<Response> expensiveTypes(context) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('access_token');
     var dio = DioConfiguration(context).createDio();
     dio.options.headers['Authorization'] = 'Bearer $accessToken';
     try {
       Response response =
-          await dio.get('medic/patients/$patientId', queryParameters: {
-        'columns':
-            '["id","name","email","phone","photo","formatted_created_at","formatted_updated_at"]',
+          await dio.get('major-medical-expenses', queryParameters: {
+        'columns': '["id","name"]',
       });
       return response;
     } on DioError {
@@ -36,15 +35,14 @@ class PatientServices {
     }
   }
 
-  Future<Response> getMedicalInformatioPatiens(context, patientId) async {
+  Future<Response> soialSegurityTypes(context) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('access_token');
     var dio = DioConfiguration(context).createDio();
     dio.options.headers['Authorization'] = 'Bearer $accessToken';
     try {
-      Response response = await dio
-          .get('medic/patients/medical-records/show', queryParameters: {
-        'patient_id': patientId,
+      Response response = await dio.get('social-securities', queryParameters: {
+        'columns': '["id","name"]',
       });
       return response;
     } on DioError {
