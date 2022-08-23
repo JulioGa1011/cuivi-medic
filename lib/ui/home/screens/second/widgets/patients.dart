@@ -1,5 +1,5 @@
-import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/home/screens/second/screens/alert_screen_format.dart';
+import 'package:cuivi_medic/ui/home/screens/second/screens/patient_information.dart';
 import 'package:cuivi_medic/ui/providers/patient_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,18 +35,16 @@ class _PatientsState extends State<Patients> {
   @override
   Widget build(BuildContext context) {
     final patientProvider = Provider.of<PatientProvider>(context);
-    logger.d(patientProvider.add.first.name);
 
     return _isLoading
         ? const Center(
             child: CircularProgressIndicator(),
           )
         : SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height,
             child: ListView.builder(
                 itemCount: patientProvider.add.length,
                 itemBuilder: ((context, index) {
-                  logger.d(patientProvider.add.length);
                   final patient = patientProvider.add[index];
                   return Column(children: [
                     Container(
@@ -72,12 +70,58 @@ class _PatientsState extends State<Patients> {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    onpressed
-                                        ? onpressed = false
-                                        : onpressed = true;
-                                    setState(() {
-                                      onpressed;
-                                    });
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                              title: SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .08,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                IconButton(
+                                                  icon: const Icon(
+                                                      Icons.note_add),
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            contex544t) {
+                                                          return const AlertScreenFormat();
+                                                        });
+                                                  },
+                                                ),
+                                                const Icon(
+                                                    Icons.medication_sharp),
+                                                IconButton(
+                                                    icon: const Icon(
+                                                        Icons.remove_red_eye),
+                                                    onPressed: () {
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              contex544t) {
+                                                            return PatientsInformation(
+                                                              patientId: patient
+                                                                  .patientId!,
+                                                              id: patient.id!,
+                                                            );
+                                                          });
+                                                    }),
+                                                const Icon(Icons.file_copy),
+                                                IconButton(
+                                                    onPressed: () {},
+                                                    icon: const Icon(
+                                                        Icons.cancel)),
+                                              ],
+                                            ),
+                                          ));
+                                        });
                                   },
                                   icon: onpressed
                                       ? const Icon(
@@ -108,7 +152,18 @@ class _PatientsState extends State<Patients> {
                                   },
                                 ),
                                 const Icon(Icons.medication_sharp),
-                                const Icon(Icons.remove_red_eye),
+                                IconButton(
+                                    icon: Icon(Icons.remove_red_eye),
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext contex544t) {
+                                            return PatientsInformation(
+                                              id: patient.id!,
+                                              patientId: patient.patientId!,
+                                            );
+                                          });
+                                    }),
                                 const Icon(Icons.file_copy),
                               ],
                             ),

@@ -1,9 +1,8 @@
+import 'package:cuivi_medic/ui/auth/screens/recover_password.dart';
 import 'package:cuivi_medic/ui/home/home_screen.dart';
 import 'package:cuivi_medic/ui/services/login_services.dart';
 import 'package:cuivi_medic/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
-
-import 'forgot_password.dart';
 
 class LoginPage extends StatefulWidget {
   static const route = 'login';

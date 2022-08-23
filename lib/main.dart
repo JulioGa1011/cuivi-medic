@@ -1,10 +1,16 @@
 import 'package:cuivi_medic/light_theme.dart';
 import 'package:cuivi_medic/routes.dart';
 import 'package:cuivi_medic/ui/home/home_screen.dart';
+import 'package:cuivi_medic/ui/home/screens/tutorial_screen.dart';
 import 'package:cuivi_medic/ui/home/tutoria_page.dart';
+import 'package:cuivi_medic/ui/providers/appointment_provider.dart';
+import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
+import 'package:cuivi_medic/ui/providers/patient_provider.dart';
+import 'package:cuivi_medic/ui/providers/types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -23,17 +29,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
-      title: 'Cuivi Medic',
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
-      home: const MyHomePage(title: 'Cuivi Medic'),
-      routes: Routes().route(),
-      navigatorKey: navigatorKey,
-      theme: LightTheme().themeData,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PatientProvider()),
+        ChangeNotifierProvider(create: (_) => AppointmentProvider()),
+        ChangeNotifierProvider(create: (_) => DoctorProvider()),
+        ChangeNotifierProvider(create: (_) => TypesProvider()),
+      ],
+      child: MaterialApp(
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+        title: 'Cuivi Medic',
+        // theme: ThemeData(
+        //   primarySwatch: Colors.blue,
+        // ),
+        home: const MyHomePage(title: 'Cuivi Medic'),
+        routes: Routes().route(),
+        navigatorKey: navigatorKey,
+        theme: LightTheme().themeData,
+      ),
     );
   }
 }
