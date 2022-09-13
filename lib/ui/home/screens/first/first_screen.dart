@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cuivi_medic/ui/home/screens/first/screens/add_appointment.dart';
 import 'package:cuivi_medic/ui/home/screens/first/screens/agend.dart';
 import 'package:cuivi_medic/ui/home/screens/first/widgets/items.dart';
 import 'package:cuivi_medic/ui/home/screens/first/widgets/profile_button.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -21,6 +23,17 @@ class _FirstScreenState extends State<FirstScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const AddAppointment();
+              });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.indigo,
+      ),
       appBar: AppBarWidget(
         title: Row(
           children: [

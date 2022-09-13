@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cuivi_medic/main.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -21,6 +22,7 @@ class _PhotoState extends State<Photo> {
     if (image != null) {
       final bytes = File(image.path).readAsBytesSync();
       base64Image = 'data:image/png;base64,${base64Encode(bytes)}';
+      logger.d(base64Image);
     } else {
       throw Exception('Image is null');
     }
@@ -35,6 +37,7 @@ class _PhotoState extends State<Photo> {
     if (photo != null) {
       final bytes = File(photo.path).readAsBytesSync();
       base64Image = 'data:image/png;base64,${base64Encode(bytes)}';
+      logger.d(base64Image);
     } else {
       throw Exception('Image is null');
     }
