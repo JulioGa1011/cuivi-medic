@@ -73,54 +73,10 @@ class _PatientsState extends State<Patients> {
                                     showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return AlertDialog(
-                                              title: SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .08,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                IconButton(
-                                                  icon: const Icon(
-                                                      Icons.note_add),
-                                                  onPressed: () {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext
-                                                            contex544t) {
-                                                          return const AlertScreenFormat();
-                                                        });
-                                                  },
-                                                ),
-                                                const Icon(
-                                                    Icons.medication_sharp),
-                                                IconButton(
-                                                    icon: const Icon(
-                                                        Icons.remove_red_eye),
-                                                    onPressed: () {
-                                                      showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                              contex544t) {
-                                                            return PatientsInformation(
-                                                              patientId: patient
-                                                                  .patientId!,
-                                                              id: patient.id!,
-                                                            );
-                                                          });
-                                                    }),
-                                                const Icon(Icons.file_copy),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: const Icon(
-                                                        Icons.cancel)),
-                                              ],
-                                            ),
-                                          ));
+                                          return PatientsInformation(
+                                            patientId: patient.patientId!,
+                                            id: patient.id!,
+                                          );
                                         });
                                   },
                                   icon: onpressed

@@ -14,6 +14,8 @@ class _ShowAllergiesState extends State<ShowAllergies> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(widget.expedient.first.allergies.length, (index) {
         final exp = widget.expedient.first.allergies[index];
         return Padding(

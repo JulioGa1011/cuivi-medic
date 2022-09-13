@@ -1,4 +1,6 @@
-import 'package:cuivi_medic/main.dart';
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
+import 'package:cuivi_medic/ui/home/screens/second/screens/patient_modify.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/medical_widget.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/show_alergy.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/show_major_medical_expense.dart';
@@ -79,6 +81,7 @@ class _PatientsInformationState extends State<PatientsInformation> {
     final type = Provider.of<TypesProvider>(context);
     final patient = patientProvider.patient;
     final expedient = patientProvider.medicalHistory;
+    // ignore: prefer_is_empty
     if (expedient.length > 0) {
       if (expedient.first.bloodTypeId != null) {
         type.types.forEach((element) {
@@ -149,12 +152,19 @@ class _PatientsInformationState extends State<PatientsInformation> {
                               ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.06,
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                              PatientModify(
+                                expedient: expedient,
+                                paramId: widget.patientId,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 20),
                                   MedicalWidget(
                                       icon: FontAwesomeIcons.fireFlameSimple,
                                       text: 'Tipo de sangre '),
@@ -237,6 +247,52 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                     seg: true,
                                   ),
                                   const SizedBox(height: 10),
+                                  MedicalWidget(
+                                      icon: FontAwesomeIcons.clipboard,
+                                      text: 'Notas'),
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        border: Border.all(
+                                          color: Color(0xFF04589A),
+                                          width: 4,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            color: Colors.blue,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.05,
+                                            child: const Text(
+                                              'TITULO DE LA NOTA',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            color: Colors.white,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.1,
+                                            child: const Center(
+                                                child: Text(
+                                                    'Contenido de la nota ')),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ],
