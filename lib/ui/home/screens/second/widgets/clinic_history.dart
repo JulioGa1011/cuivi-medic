@@ -1,20 +1,38 @@
-import 'package:cuivi_medic/widgets/app_bar_widget.dart';
-import 'package:cuivi_medic/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
 
-class Format extends StatefulWidget {
-  const Format({Key? key}) : super(key: key);
+import '../../../../../widgets/input_widget.dart';
+
+class ClinicHistory extends StatefulWidget {
+  ClinicHistory({Key? key}) : super(key: key);
 
   @override
-  State<Format> createState() => _FormatState();
+  State<ClinicHistory> createState() => _ClinicHistoryState();
 }
 
-class _FormatState extends State<Format> {
+class _ClinicHistoryState extends State<ClinicHistory> {
   final TextEditingController _identityController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        InputWidget(
+          onSaved: (p0) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onSubmitted: (text) {},
+          textCapitalization: TextCapitalization.none,
+          validate: (text) {
+            if (text!.trim().isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
+          hintText: 'Ficha de identificación',
+          controller: _identityController,
+          textInputAction: TextInputAction.next,
+          textInputType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 10),
         InputWidget(
           onSaved: (p0) {},
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -77,41 +95,92 @@ class _FormatState extends State<Format> {
             }
             return null;
           },
+          hintText: 'Antecedentes heredofamiliares',
+          controller: _identityController,
+          textInputAction: TextInputAction.next,
+          textInputType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 10),
+        InputWidget(
+          onSaved: (p0) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onSubmitted: (text) {},
+          textCapitalization: TextCapitalization.none,
+          validate: (text) {
+            if (text!.trim().isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
+          hintText: 'Antecedentes personales no patológicos',
+          controller: _identityController,
+          textInputAction: TextInputAction.next,
+          textInputType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 10),
+        InputWidget(
+          onSaved: (p0) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onSubmitted: (text) {},
+          textCapitalization: TextCapitalization.none,
+          validate: (text) {
+            if (text!.trim().isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
+          hintText: 'Antecedentes personales patológicos',
+          controller: _identityController,
+          textInputAction: TextInputAction.next,
+          textInputType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 10),
+        InputWidget(
+          onSaved: (p0) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onSubmitted: (text) {},
+          textCapitalization: TextCapitalization.none,
+          validate: (text) {
+            if (text!.trim().isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
+          hintText: 'Padecimiento actual',
+          controller: _identityController,
+          textInputAction: TextInputAction.next,
+          textInputType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 10),
+        InputWidget(
+          onSaved: (p0) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onSubmitted: (text) {},
+          textCapitalization: TextCapitalization.none,
+          validate: (text) {
+            if (text!.trim().isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
+          hintText: 'Interrogatorio por aparatos y sistemas',
+          controller: _identityController,
+          textInputAction: TextInputAction.next,
+          textInputType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 10),
+        InputWidget(
+          onSaved: (p0) {},
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onSubmitted: (text) {},
+          textCapitalization: TextCapitalization.none,
+          validate: (text) {
+            if (text!.trim().isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
           hintText: 'Signos vitales',
-          controller: _identityController,
-          textInputAction: TextInputAction.next,
-          textInputType: TextInputType.emailAddress,
-        ),
-        const SizedBox(height: 10),
-        InputWidget(
-          onSaved: (p0) {},
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSubmitted: (text) {},
-          textCapitalization: TextCapitalization.none,
-          validate: (text) {
-            if (text!.trim().isEmpty) {
-              return 'Este campo es requerido';
-            }
-            return null;
-          },
-          hintText: 'Parametros clinicos',
-          controller: _identityController,
-          textInputAction: TextInputAction.next,
-          textInputType: TextInputType.emailAddress,
-        ),
-        const SizedBox(height: 10),
-        InputWidget(
-          onSaved: (p0) {},
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSubmitted: (text) {},
-          textCapitalization: TextCapitalization.none,
-          validate: (text) {
-            if (text!.trim().isEmpty) {
-              return 'Este campo es requerido';
-            }
-            return null;
-          },
-          hintText: 'Resumen del interrogatorio',
           controller: _identityController,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
@@ -145,7 +214,7 @@ class _FormatState extends State<Format> {
             }
             return null;
           },
-          hintText: 'Resultados de estudios de gabinete',
+          hintText: 'Resultados previos y actuales de estudios ',
           controller: _identityController,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
@@ -162,7 +231,7 @@ class _FormatState extends State<Format> {
             }
             return null;
           },
-          hintText: 'Diagnostico',
+          hintText: 'Terapéutica empleada',
           controller: _identityController,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
@@ -179,45 +248,12 @@ class _FormatState extends State<Format> {
             }
             return null;
           },
-          hintText: 'Plan o tratamiento',
+          hintText: 'Diagnósticos',
           controller: _identityController,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 10),
-        InputWidget(
-          onSaved: (p0) {},
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSubmitted: (text) {},
-          textCapitalization: TextCapitalization.none,
-          validate: (text) {
-            if (text!.trim().isEmpty) {
-              return 'Este campo es requerido';
-            }
-            return null;
-          },
-          hintText: 'Pronostico',
-          controller: _identityController,
-          textInputAction: TextInputAction.next,
-          textInputType: TextInputType.emailAddress,
-        ),
-        const SizedBox(height: 10),
-        InputWidget(
-          onSaved: (p0) {},
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSubmitted: (text) {},
-          textCapitalization: TextCapitalization.none,
-          validate: (text) {
-            if (text!.trim().isEmpty) {
-              return 'Este campo es requerido';
-            }
-            return null;
-          },
-          hintText: 'nombre, cedula y firma',
-          controller: _identityController,
-          textInputAction: TextInputAction.next,
-          textInputType: TextInputType.emailAddress,
-        ),
       ],
     );
   }

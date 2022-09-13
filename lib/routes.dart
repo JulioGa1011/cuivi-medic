@@ -1,6 +1,5 @@
-import 'package:cuivi_medic/main.dart';
-import 'package:cuivi_medic/ui/auth/screens/forgot_password.dart';
 import 'package:cuivi_medic/ui/auth/screens/login.dart';
+import 'package:cuivi_medic/ui/auth/screens/recover_password.dart';
 import 'package:cuivi_medic/ui/auth/screens/sing_up.dart';
 import 'package:cuivi_medic/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';

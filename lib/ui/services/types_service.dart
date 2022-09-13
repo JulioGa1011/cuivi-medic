@@ -49,4 +49,51 @@ class TypesServices {
       rethrow;
     }
   }
+
+  Future<Response> specialitiesTypes(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString('access_token');
+    var dio = DioConfiguration(context).createDio();
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
+    try {
+      Response response =
+          await dio.get('medical-specialities', queryParameters: {
+        'columns': '["id","name"]',
+      });
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  Future<Response> servicesTypes(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString('access_token');
+    var dio = DioConfiguration(context).createDio();
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
+    try {
+      Response response = await dio.get('medical-services', queryParameters: {
+        'columns': '["id","name"]',
+      });
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  Future<Response> ailmentsTypes(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString('access_token');
+    var dio = DioConfiguration(context).createDio();
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
+    try {
+      Response response =
+          await dio.get('medical-diagnostics', queryParameters: {
+        'columns': '["id","name"]',
+      });
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
 }
