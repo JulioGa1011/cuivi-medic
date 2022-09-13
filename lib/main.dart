@@ -1,11 +1,12 @@
 import 'package:cuivi_medic/light_theme.dart';
 import 'package:cuivi_medic/routes.dart';
 import 'package:cuivi_medic/ui/home/home_screen.dart';
-import 'package:cuivi_medic/ui/home/screens/tutorial_screen.dart';
 import 'package:cuivi_medic/ui/home/tutoria_page.dart';
 import 'package:cuivi_medic/ui/providers/appointment_provider.dart';
 import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
+import 'package:cuivi_medic/ui/providers/params_provider.dart';
 import 'package:cuivi_medic/ui/providers/patient_provider.dart';
+import 'package:cuivi_medic/ui/providers/store_provider.dart';
 import 'package:cuivi_medic/ui/providers/types_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppointmentProvider()),
         ChangeNotifierProvider(create: (_) => DoctorProvider()),
         ChangeNotifierProvider(create: (_) => TypesProvider()),
+        ChangeNotifierProvider(create: (_) => ParamsProvider()),
+        ChangeNotifierProvider(create: (_) => StoreProvider()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
@@ -72,17 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
             body: Center(child: CircularProgressIndicator()),
           );
         } else {
-          final welcome = snapshot.data!.getBool('welcome') ?? false;
           final token = snapshot.data!.getString('access_token');
-          if (welcome) {
-            return const TutorialScreen();
+
+          if (token == null || token == '') {
+            return const TutorialPage();
           } else {
-            //return const LoginPage();
-            if (token == null || token == '') {
-              return const TutorialScreen();
-            } else {
-              return const HomeScreen();
-            }
+            return const HomeScreen();
           }
         }
       },

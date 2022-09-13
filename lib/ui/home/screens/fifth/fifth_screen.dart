@@ -24,7 +24,7 @@ class _FifthScreenState extends State<FifthScreen> {
               width: size.width * 0.25,
             ),
             const Text(
-              'Pacientes',
+              'Médicos',
               style: TextStyle(
                 color: Colors.blue,
               ),

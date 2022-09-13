@@ -44,7 +44,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       Align(
         alignment: Alignment.bottomRight,
         child: Column(children: [
-          const SizedBox(height: 100),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           Image.asset('assets/images/tutorial/undraw_medical_care_movn.png',
               fit: BoxFit.fill, width: double.infinity),
         ]),
@@ -53,7 +53,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
         alignment: Alignment.bottomRight,
         child: Column(
           children: [
-            const SizedBox(height: 100),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             Image.asset(
               'assets/images/tutorial/undraw_Booked_re_vtod.png',
               fit: BoxFit.fill,
@@ -65,7 +65,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       Align(
           alignment: Alignment.bottomRight,
           child: Column(children: [
-            const SizedBox(height: 100),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             Image.asset(
                 'assets/images/tutorial/undraw_Social_influencer_re_beim.png'),
           ])),
@@ -82,7 +82,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
         height: MediaQuery.of(context).size.height,
         color: Colors.white,
         child: Stack(
-          alignment: Alignment.center,
           children: [
             PageView(
               controller: _pageController,
@@ -99,17 +98,24 @@ class _TutorialScreenState extends State<TutorialScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 70),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.08),
                         if (page == 0)
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 230),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.30),
                               Text(
                                 'Encuentra tus insumos médicos',
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.headline5,
                               ),
-                              const SizedBox(height: 25),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.004),
                               const Text(
                                 'Contamos con una tienda especial para medicos con diferente variedad de productos',
                                 textAlign: TextAlign.center,
@@ -118,18 +124,27 @@ class _TutorialScreenState extends State<TutorialScreen> {
                                   color: Color.fromARGB(255, 192, 192, 192),
                                 ),
                               ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.06),
                             ],
                           ),
                         if (page == 1)
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 230),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.32),
                               Text(
                                 'Lleva el control de las citas de tus pacientes',
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.headline5,
                               ),
-                              const SizedBox(height: 25),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.002),
                               const Text(
                                 'Manten en tiempo real el control de tu agenda y obtén confirmaciones de tus pacientes',
                                 textAlign: TextAlign.center,
@@ -142,14 +157,20 @@ class _TutorialScreenState extends State<TutorialScreen> {
                           ),
                         if (page == 2)
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 230),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.32),
                               Text(
                                 'Permite que tus futuros pacientes te encuentren',
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.headline5,
                               ),
-                              const SizedBox(height: 25),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.002),
                               const Text(
                                 'Aparece en la lista de medicos de tu localidad y muestra tus especialidades',
                                 textAlign: TextAlign.center,
@@ -160,7 +181,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                               ),
                             ],
                           ),
-                        const SizedBox(height: 25),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
                         AnimatedSmoothIndicator(
                           activeIndex: page,
                           count: tutoImages.length,
@@ -181,83 +203,92 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 80),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color.fromARGB(255, 70, 24, 236)),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side:
-                                        const BorderSide(color: Colors.blue)))),
-                        child: const Text(
-                          'Continuar',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.09,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color.fromARGB(255, 70, 24, 236)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: const BorderSide(
+                                            color: Colors.blue)))),
+                            child: const Text(
+                              'Continuar',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (page == tutoImages.length - 1) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: const LoginPage()),
+                                    (Route<dynamic> route) => false);
+                                welcome();
+                              } else {
+                                _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.linear,
+                                );
+                              }
+                            },
                           ),
                         ),
-                        onPressed: () {
-                          if (page == tutoImages.length - 1) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    child: const LoginPage()),
-                                (Route<dynamic> route) => false);
-                            welcome();
-                          } else {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.linear,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side:
-                                        const BorderSide(color: Colors.grey)))),
-                        child: const Text(
-                          'Iniciar sesion',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 70, 24, 236)),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.09,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: const BorderSide(
+                                            color: Colors.grey)))),
+                            child: const Text(
+                              'Iniciar sesion',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: Color.fromARGB(255, 70, 24, 236)),
+                            ),
+                            onPressed: () {
+                              if (page == tutoImages.length - 1) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: const LoginPage()),
+                                    (Route<dynamic> route) => false);
+                                welcome();
+                              } else {
+                                _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.linear,
+                                );
+                              }
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          if (page == tutoImages.length - 1) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    child: const LoginPage()),
-                                (Route<dynamic> route) => false);
-                            welcome();
-                          } else {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.linear,
-                            );
-                          }
-                        },
-                      ),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
