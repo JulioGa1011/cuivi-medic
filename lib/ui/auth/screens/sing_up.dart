@@ -1,10 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cuivi_medic/ui/auth/screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../widgets/button_widget.dart';
 import '../../../widgets/input_widget.dart';
 
 class SignupPage extends StatefulWidget {
@@ -23,7 +22,7 @@ class _SignupPageState extends State<SignupPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
-  var _isLoading = false;
+  final _isLoading = false;
 
   // void _submitForm() {
   //   if (_formKey.currentState!.validate()) {

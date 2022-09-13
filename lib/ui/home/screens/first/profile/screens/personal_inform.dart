@@ -10,6 +10,8 @@ class PersonalInformation extends StatefulWidget {
 }
 
 class _PersonalInformationState extends State<PersonalInformation> {
+  _submitPersonal() {}
+  _submitProfesional() {}
   var isInit = false;
   var _isLoading = false;
   @override
@@ -31,56 +33,61 @@ class _PersonalInformationState extends State<PersonalInformation> {
 
   @override
   Widget build(BuildContext context) {
-    final personal = Provider.of<DoctorProvider>(context).add.first;
+    final personal = Provider.of<DoctorProvider>(context);
 
     return _isLoading
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Column(
-            children: [
-              const Text('Nombre'),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: '${personal.name}',
-                  border: const OutlineInputBorder(),
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                const Text('Nombre'),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: '${personal.add.first.name}',
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text('Email'),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: '${personal.email}',
-                  border: const OutlineInputBorder(),
+                const SizedBox(height: 10),
+                const Text('Email'),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: '${personal.add.first.email}',
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text('Telefono'),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: '${personal.phone}',
-                  border: const OutlineInputBorder(),
+                const SizedBox(height: 10),
+                const Text('Telefono'),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: '${personal.add.first.phone}',
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text('Numero de consultorio'),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: '${personal.healthStaff.officePhone}',
-                  border: const OutlineInputBorder(),
+                const SizedBox(height: 10),
+                const Text('Numero de consultorio'),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: '${personal.add.first.healthStaff.officePhone}',
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text('Acerca de mi'),
-              TextField(
-                decoration: InputDecoration(
-                  labelText:
-                      personal.healthStaff.aboutMe!.split('>')[1].split('<')[0],
-                  border: const OutlineInputBorder(),
+                const SizedBox(height: 10),
+                const Text('Acerca de mi'),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: personal.add.first.healthStaff.aboutMe!,
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-            ],
+                const SizedBox(height: 10),
+                ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Actualizar Información'))
+              ],
+            ),
           );
   }
 }

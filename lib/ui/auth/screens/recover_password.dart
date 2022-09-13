@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../widgets/button_widget.dart';
 import '../../../widgets/input_widget.dart';
 import 'login.dart';
 
@@ -15,7 +14,7 @@ class RecoverPassword extends StatefulWidget {
 class _RecoverPasswordState extends State<RecoverPassword> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  var _isLoading = false;
+  final _isLoading = false;
 
   // void _submit(BuildContext context) {
   //   if (_formKey.currentState!.validate()) {

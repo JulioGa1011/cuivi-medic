@@ -25,7 +25,6 @@ class LoginServices {
     };
 
     try {
-      logger.d('Hola');
       Response response = await dio.post(
         "login",
         options: Options(headers: {"requirestoken": false}),
