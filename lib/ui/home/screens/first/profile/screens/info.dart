@@ -1,4 +1,5 @@
 import 'package:cuivi_medic/main.dart';
+import 'package:cuivi_medic/ui/models/types_model.dart';
 import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
 import 'package:cuivi_medic/ui/providers/types_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +15,28 @@ class Information extends StatefulWidget {
 class _InformationState extends State<Information> {
   String? dropdownValue;
   String? dropdownValue2;
+  String? aboutMe;
+  String? identificationCard;
+  List<dynamic>? specialities;
+
 
   var isInit = false;
   var _isLoading = false;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async{
     if (!isInit) {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<DoctorProvider>(context)
+       Provider.of<DoctorProvider>(context)
           .professionalInformation(context)
           .then((value) {
         setState(() {
           _isLoading = false;
         });
       });
-      Provider.of<TypesProvider>(context).typesAilments(context).then((value) {
+       Provider.of<TypesProvider>(context).typesAilments(context).then((value) {
         setState(() {
           _isLoading = false;
         });
@@ -41,7 +46,7 @@ class _InformationState extends State<Information> {
           _isLoading = false;
         });
       });
-      Provider.of<TypesProvider>(context)
+       Provider.of<TypesProvider>(context)
           .typesSpecialities(context)
           .then((value) {
         setState(() {
@@ -58,8 +63,18 @@ class _InformationState extends State<Information> {
   Widget build(BuildContext context) {
     final professional = Provider.of<DoctorProvider>(context);
     final types = Provider.of<TypesProvider>(context);
-    dropdownValue = types.ailments.first.name;
-    dropdownValue2 = types.services.first.name;
+    types.ailments.add(TypesModel(id: 100, name: 'No info'));
+    types.services.add(TypesModel(id: 100, name: 'No info'));
+    dropdownValue = 'No info';
+    dropdownValue2 = 'No info';
+    professional.professional.forEach((element) {aboutMe= element.aboutMe;
+    identificationCard= element.identificationCard;
+    specialities= element.specialities;
+    
+    
+    setState(() {
+      
+    });});
     return _isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -71,7 +86,7 @@ class _InformationState extends State<Information> {
                 const Text('Descripcion'),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: professional.professional.first.aboutMe!,
+                    labelText: aboutMe?? 'Sin informacion',
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -79,8 +94,7 @@ class _InformationState extends State<Information> {
                 const Text('Cedula'),
                 TextField(
                   decoration: InputDecoration(
-                    labelText:
-                        '${professional.professional.first.identificationCard}',
+                    labelText: identificationCard?? 'Sin informacion',
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -96,7 +110,7 @@ class _InformationState extends State<Information> {
                 TextField(
                   decoration: InputDecoration(
                     labelText:
-                        '${professional.professional.first.identificationCard}',
+                        identificationCard,
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -104,7 +118,7 @@ class _InformationState extends State<Information> {
                 const Text('Especialidad'),
                 Column(
                   children: List.generate(
-                      professional.professional.first.specialities.length,
+                      specialities!.length,
                       (index) {
                     final specialities =
                         professional.professional.first.specialities[index];
@@ -137,7 +151,7 @@ class _InformationState extends State<Information> {
                     setState(() {
                       dropdownValue2 = newValue!;
                     });
-                    logger.d(dropdownValue);
+                    logger.d(dropdownValue2);
                   },
                   items: types.services.map<DropdownMenuItem<String>>((value) {
                     return DropdownMenuItem<String>(

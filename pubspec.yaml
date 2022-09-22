@@ -22,6 +22,7 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   font_awesome_flutter: ^10.1.0
   image_picker: ^0.8.5+3
+  intl: ^0.17.0
   logger: ^1.1.0
   page_transition: ^2.0.9
   provider: ^6.0.3
@@ -29,6 +30,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   syncfusion_flutter_calendar: ^20.2.43
   table_calendar: ^3.0.6
+  time_picker_widget: ^1.0.0+10
   url_launcher: ^6.1.5
 
 

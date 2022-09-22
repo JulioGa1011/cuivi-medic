@@ -23,4 +23,33 @@ class AppointmentServices {
       rethrow;
     }
   }
+  Future<Response> createAppointment(
+    context,
+    day,
+    start,
+    end,
+    patient,
+    title,
+    decription,
+  ) async {
+    var prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString('access_token');
+    var dio = DioConfiguration(context).createDio();
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
+    try {
+      Response response = await dio.post('medic/appointments', data: {
+        "appointment_time": day,
+        "start": start,
+        "end": end,
+        "patient_id": patient,
+        "title": title,
+        "description": decription,
+      }
+          // queryParameters: {'columns': '["name","phone"]',}
+          );
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
 }

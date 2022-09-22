@@ -25,13 +25,10 @@ class _ThirdScreenState extends State<ThirdScreen> {
             // ProfileButton(),
           ],
         ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Column(
+        body: 
+          Column(
             children: const [AddPrescription()],
           ),
-        ));
+        );
   }
 }
