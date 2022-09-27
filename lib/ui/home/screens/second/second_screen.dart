@@ -1,3 +1,4 @@
+import 'package:cuivi_medic/ui/home/screens/first/widgets/profile_button.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/code.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/patients.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
@@ -14,8 +15,8 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const AppBarWidget(
-          title: Text(
+        appBar: AppBarWidget(
+          title: const Text(
             'Mis Pacientes',
             style: TextStyle(
               fontSize: 25,
@@ -23,7 +24,20 @@ class _SecondScreenState extends State<SecondScreen> {
             ),
           ),
           actions: [
-            // ProfileButton(),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.filter_list_sharp,
+                  size: 30,
+                  color: Colors.black,
+                )),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.add,
+                  size: 30,
+                  color: Colors.black,
+                )),
           ],
         ),
         body: SafeArea(
@@ -46,7 +60,10 @@ class _SecondScreenState extends State<SecondScreen> {
                 ),
                 child: Center(
                     child: Column(
-                  children: const [Code(), SizedBox(height: 20), Patients()],
+                  children: const [
+                    //Code(),
+                    SizedBox(height: 20), Patients()
+                  ],
                 )),
               ),
             )
