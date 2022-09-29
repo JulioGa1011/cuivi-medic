@@ -17,6 +17,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   final CarouselController _controller = CarouselController();
+  TextEditingController search = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,10 @@ class _FirstScreenState extends State<FirstScreen> {
                 return const AddAppointment();
               });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         backgroundColor: Colors.indigo,
       ),
-      appBar: AppBarWidget(
+      /*appBar: AppBarWidget(
         title: Row(
           children: [
             Image.asset(
@@ -52,10 +53,110 @@ class _FirstScreenState extends State<FirstScreen> {
         actions: const [
           ProfileButton(),
         ],
-      ),
+      ),*/
       body: SafeArea(
         child: Column(
           children: [
+            Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 45, 191, 227),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Column(children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Container(
+                      height: MediaQuery.of(context).size.height * .08,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const CircleAvatar(
+                                  child: Icon(Icons.person),
+                                  radius: 50,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      'Hola, Mario',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      '¿Como estas hoy?',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Center(
+                                child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      FontAwesomeIcons.bell,
+                                      color: Colors.indigo,
+                                    )),
+                              ),
+                            ),
+                            Spacer()
+                          ],
+                        ),
+                      )),
+                  SizedBox(height: size.height * 0.02),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      elevation: 10,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: TextField(
+                              style: TextStyle(),
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                border: InputBorder.none,
+                                labelText: ' Buscar',
+                              ),
+                              controller: search,
+                              textCapitalization: TextCapitalization.sentences,
+                              onEditingComplete: () {
+                                setState(() {
+                                  search;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ])),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(

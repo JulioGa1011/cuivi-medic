@@ -47,6 +47,8 @@ class _RecoverPasswordState extends State<RecoverPassword> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _isLoading
@@ -57,19 +59,19 @@ class _RecoverPasswordState extends State<RecoverPassword> {
                     const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                 child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Recuperar Contraseña',
-                        style: Theme.of(context).textTheme.headline1,
+                    
+                   
+                    SizedBox(height: size.height* 0.1),
+                      Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: Image.asset('assets/images/logo1.png'),
                       ),
-                    ),
                     const SizedBox(height: 20),
-                    Text(
+                    /*Text(
                       'Ingresa tu correo electrónico y nosotros te enviaremos las instrucciones para restablecer tu contraseña.',
                       textAlign: TextAlign.justify,
                       style: Theme.of(context).textTheme.bodyText2,
-                    ),
+                    ),*/
                     const SizedBox(height: 20),
                     Form(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -103,30 +105,42 @@ class _RecoverPasswordState extends State<RecoverPassword> {
                                     side:
                                         const BorderSide(color: Colors.blue)))),
                         child: const Text(
-                          'Enviar correo',
+                          'Recuperar Contraseña',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
                         ),
                         onPressed: () {
+                              Navigator.pushReplacementNamed(context, 'verify-code');
+
                           // _login(context);
                         },
                       ),
                     ),
                     const SizedBox(height: 50),
-                    const Text(
-                      '¡No tengo problemas con mi contraseña!',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.normal),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '¡No tengo problemas!',
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.normal),
+                          ),
+                          TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, LoginPage.route);
+                        },
+                        child: const Text('Iniciar Sesión'),
+                      ),
+                        ],
+                      ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, LoginPage.route);
-                      },
-                      child: const Text('Iniciar Sesión'),
-                    ),
+                    
                   ],
                 ),
               ),

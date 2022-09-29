@@ -13,6 +13,7 @@ class Patients extends StatefulWidget {
 
 class _PatientsState extends State<Patients> {
   var isInit = false;
+  TextEditingController search = TextEditingController();
 
   var _isLoading = false;
   @override
@@ -40,95 +41,104 @@ class _PatientsState extends State<Patients> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: ListView.builder(
-                itemCount: patientProvider.add.length,
-                itemBuilder: ((context, index) {
-                  final patient = patientProvider.add[index];
-                  return Column(children: [
-                    Container(
-                        height: MediaQuery.of(context).size.height * .08,
-                        width: MediaQuery.of(context).size.width * .8,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
+        : Column(
+            children: [
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 10,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: TextField(
+                        style: TextStyle(),
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.search),
+                          border: InputBorder.none,
+                          labelText: ' Buscar',
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(Icons.person),
-                                  Text(patient.name ?? ''),
-                                ],
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return PatientsInformation(
-                                            patientId: patient.patientId!,
-                                            id: patient.id!,
-                                          );
-                                        });
-                                  },
-                                  icon: onpressed
-                                      ? const Icon(
-                                          Icons.arrow_downward,
-                                          color: Colors.green,
-                                        )
-                                      : const Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.black,
-                                        ))
-                            ],
-                          ),
-                        )),
-                    onpressed
-                        ? SizedBox(
-                            height: MediaQuery.of(context).size.height * .08,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.note_add),
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext contex544t) {
-                                          return const AlertScreenFormat();
-                                        });
-                                  },
+                        controller: search,
+                        textCapitalization: TextCapitalization.sentences,
+                        onEditingComplete: () {
+                          setState(() {
+                            search;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                    itemCount: patientProvider.add.length,
+                    itemBuilder: ((context, index) {
+                      final patient = patientProvider.add[index];
+                      return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                height:
+                                    MediaQuery.of(context).size.height * .08,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                const Icon(Icons.medication_sharp),
-                                IconButton(
-                                    icon: Icon(Icons.remove_red_eye),
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext contex544t) {
-                                            return PatientsInformation(
-                                              id: patient.id!,
-                                              patientId: patient.patientId!,
-                                            );
-                                          });
-                                    }),
-                                const Icon(Icons.file_copy),
-                              ],
-                            ),
-                          )
-                        : const SizedBox(
-                            height: 10,
-                          ),
-                  ]);
-                })),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const CircleAvatar(
+                                            child: Icon(Icons.person),
+                                            radius: 50,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(patient.name ?? ''),
+                                              Text(patient.email ?? ''),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return PatientsInformation(
+                                                    patientId:
+                                                        patient.patientId!,
+                                                    id: patient.id!,
+                                                  );
+                                                });
+                                          },
+                                          icon: const Icon(
+                                            Icons.more_vert,
+                                            color: Color.fromARGB(
+                                                255, 119, 119, 119),
+                                          ))
+                                    ],
+                                  ),
+                                )),
+                          ]);
+                    })),
+              ),
+            ],
           );
   }
 }

@@ -3,6 +3,7 @@ import 'package:cuivi_medic/ui/home/home_screen.dart';
 import 'package:cuivi_medic/ui/services/login_services.dart';
 import 'package:cuivi_medic/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   static const route = 'login';
@@ -78,23 +79,31 @@ class _LoginPageState extends State<LoginPage> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      SizedBox(height: size.height* 0.1),
+                      Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: Image.asset('assets/images/logo1.png'),
+                      ),
+
                       SizedBox(
                         width: size.width * 0,
                         height: size.width * 0.05,
                       ),
-                      Align(
+                      /*Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           'Bienvenido',
                           style: Theme.of(context).textTheme.headline2,
                         ),
-                      ),
+                      ),*/
                       const SizedBox(height: 50),
-                      Text(
+
+                      /*Text(
                         'Ingresa tu correo y contraseña para poder disfrutar de CUIVI',
                         style: Theme.of(context).textTheme.bodyText2,
-                      ),
+                      ),*/
                       const SizedBox(height: 20),
+
                       InputWidget(
                         onSaved: (p0) {},
                         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -144,30 +153,35 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 60,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color.fromARGB(255, 91, 54, 224)),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      side: const BorderSide(
-                                          color: Colors.blue)))),
-                          child: const Text(
-                            'Ingresar',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            height: 60,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(
+                                      const Color.fromARGB(255, 91, 54, 224)),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          side: const BorderSide(
+                                              color: Colors.blue)))),
+                              child: const Text(
+                                'Ingresar',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                ),
+                              ),
+                              onPressed: () {
+                                _login(context);
+                              },
                             ),
                           ),
-                          onPressed: () {
-                            _login(context);
-                          },
-                        ),
+                          IconButton(onPressed: (){}, icon: Icon(Icons.fingerprint , size: 40,))
+                        ],
                       ),
                       const SizedBox(height: 30),
                       const SizedBox(height: 40),

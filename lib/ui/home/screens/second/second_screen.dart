@@ -16,10 +16,11 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarWidget(
+          centerTitle: true,
           title: const Text(
-            'Mis Pacientes',
+            'Pacientes',
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 20,
               color: Colors.black,
             ),
           ),
@@ -29,14 +30,14 @@ class _SecondScreenState extends State<SecondScreen> {
                 icon: Icon(
                   Icons.filter_list_sharp,
                   size: 30,
-                  color: Colors.black,
+                  color: Colors.indigo,
                 )),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.add,
                   size: 30,
-                  color: Colors.black,
+                  color: Colors.indigo,
                 )),
           ],
         ),
@@ -47,9 +48,8 @@ class _SecondScreenState extends State<SecondScreen> {
           child: Column(children: [
             Padding(
               padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
+                left: 10,
+                right: 10,
               ),
               child: Container(
                 width: double.infinity,

@@ -33,9 +33,10 @@ class _AgendState extends State<Agend> {
       Provider.of<AppointmentProvider>(context)
           .getAppointment(context)
           .then((value) {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted)
+          setState(() {
+            _isLoading = false;
+          });
       });
       isInit = true;
       super.didChangeDependencies();
@@ -58,6 +59,17 @@ class _AgendState extends State<Agend> {
       child: Column(
         children: [
           TableCalendar(
+            calendarStyle: const CalendarStyle(
+              todayDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Color(0xFF9FA8DA),
+                  shape: BoxShape.rectangle),
+              selectedDecoration: BoxDecoration(
+                  //borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Color(0xFF5C6BC0),
+                  shape: BoxShape.rectangle),
+            ),
+            headerVisible: false,
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
@@ -112,7 +124,6 @@ class _AgendState extends State<Agend> {
               });
             },
           ),
-          const SizedBox(height: 30),
           Column(
             children: [
               Row(

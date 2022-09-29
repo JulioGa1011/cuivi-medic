@@ -113,7 +113,22 @@ class _PatientsInformationState extends State<PatientsInformation> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Perfil del paciente'),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            FontAwesomeIcons.arrowLeftLong,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context);
+          },
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        ),
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Perfil del paciente',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: _isLoading
           ? const Center(
@@ -130,17 +145,13 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 height:
                                     MediaQuery.of(context).size.height * 0.2,
-                                color: Colors.red,
                                 child: patient.first.photo != null
                                     ? Image(
                                         image:
                                             NetworkImage(patient.first.photo!),
                                       )
-                                    : Container(
-                                        color: Colors.blue[100],
-                                        child:
-                                            const Icon(Icons.person, size: 100),
-                                      ),
+                                    : const CircleAvatar(
+                                        child: Icon(Icons.person, size: 100)),
                               ),
                               SizedBox(
                                 height:

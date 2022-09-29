@@ -19,34 +19,37 @@ class _InformationState extends State<Information> {
   String? identificationCard;
   List<dynamic>? specialities;
 
-
   var isInit = false;
   var _isLoading = false;
 
   @override
-  void didChangeDependencies() async{
+  void didChangeDependencies() async {
     if (!isInit) {
       setState(() {
         _isLoading = true;
       });
-       Provider.of<DoctorProvider>(context)
+      await Provider.of<DoctorProvider>(context)
           .professionalInformation(context)
           .then((value) {
         setState(() {
           _isLoading = false;
         });
       });
-       Provider.of<TypesProvider>(context).typesAilments(context).then((value) {
+      await Provider.of<TypesProvider>(context)
+          .typesAilments(context)
+          .then((value) {
         setState(() {
           _isLoading = false;
         });
       });
-      Provider.of<TypesProvider>(context).typesServices(context).then((value) {
+      await Provider.of<TypesProvider>(context)
+          .typesServices(context)
+          .then((value) {
         setState(() {
           _isLoading = false;
         });
       });
-       Provider.of<TypesProvider>(context)
+      await Provider.of<TypesProvider>(context)
           .typesSpecialities(context)
           .then((value) {
         setState(() {
@@ -67,14 +70,13 @@ class _InformationState extends State<Information> {
     types.services.add(TypesModel(id: 100, name: 'No info'));
     dropdownValue = 'No info';
     dropdownValue2 = 'No info';
-    professional.professional.forEach((element) {aboutMe= element.aboutMe;
-    identificationCard= element.identificationCard;
-    specialities= element.specialities;
-    
-    
-    setState(() {
-      
-    });});
+    professional.professional.forEach((element) {
+      aboutMe = element.aboutMe;
+      identificationCard = element.identificationCard;
+      specialities = element.specialities;
+
+      setState(() {});
+    });
     return _isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -86,7 +88,7 @@ class _InformationState extends State<Information> {
                 const Text('Descripcion'),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: aboutMe?? 'Sin informacion',
+                    labelText: aboutMe ?? 'Sin informacion',
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -94,7 +96,7 @@ class _InformationState extends State<Information> {
                 const Text('Cedula'),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: identificationCard?? 'Sin informacion',
+                    labelText: identificationCard ?? 'Sin informacion',
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -109,27 +111,25 @@ class _InformationState extends State<Information> {
                 const SizedBox(height: 10),
                 TextField(
                   decoration: InputDecoration(
-                    labelText:
-                        identificationCard,
+                    labelText: identificationCard,
                     border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 10),
                 const Text('Especialidad'),
                 Column(
-                  children: List.generate(
-                      specialities!.length,
-                      (index) {
-                    final specialities =
-                        professional.professional.first.specialities[index];
-                    return const TextField(
-                      decoration: InputDecoration(
-                        labelText: '',
-                        border: OutlineInputBorder(),
-                      ),
-                    );
-                  }),
-                ),
+                    children: specialities != null
+                        ? List.generate(specialities!.length, (index) {
+                            final specialities = professional
+                                .professional.first.specialities[index];
+                            return const TextField(
+                              decoration: InputDecoration(
+                                labelText: '',
+                                border: OutlineInputBorder(),
+                              ),
+                            );
+                          })
+                        : []),
                 const SizedBox(height: 10),
                 const Text('Servicios Medicos'),
                 const TextField(
