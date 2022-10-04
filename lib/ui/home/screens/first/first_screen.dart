@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cuivi_medic/ui/home/screens/first/profile/profile_page.dart';
 import 'package:cuivi_medic/ui/home/screens/first/screens/add_appointment.dart';
 import 'package:cuivi_medic/ui/home/screens/first/screens/agend.dart';
 import 'package:cuivi_medic/ui/home/screens/first/widgets/items.dart';
@@ -6,6 +7,7 @@ import 'package:cuivi_medic/ui/home/screens/first/widgets/profile_button.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -87,9 +89,20 @@ class _FirstScreenState extends State<FirstScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const CircleAvatar(
-                                  child: Icon(Icons.person),
-                                  radius: 50,
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        PageTransition(
+                                            type:
+                                                PageTransitionType.topToBottom,
+                                            child: const ProfilePage()),
+                                        (Route<dynamic> route) => true);
+                                  },
+                                  child: const CircleAvatar(
+                                    child: Icon(Icons.person),
+                                    radius: 50,
+                                  ),
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

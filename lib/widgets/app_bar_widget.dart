@@ -30,7 +30,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 Navigator.pop(context);
               },
               icon: const Icon(
-                CupertinoIcons.chevron_back,
+                Icons.close,
                 color: Colors.black,
                 // size: 30,
               ),

@@ -66,7 +66,7 @@ class _InputWidgetState extends State<InputWidget> {
       child: SizedBox(
         child: Theme(
           data: Theme.of(context).copyWith(
-            primaryColor: const Color(0xFF00afef),
+            primaryColor: Colors.indigoAccent,
           ),
           child: Center(
             child: TextFormField(
@@ -112,25 +112,25 @@ class _InputWidgetState extends State<InputWidget> {
                 labelText: widget.hintText,
                 labelStyle: widget.hintStyle,
                 disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.indigo),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.indigo),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(color: Colors.red, width: 2),
                 ),
                 errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(color: Colors.red),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: const BorderSide(
-                    color: Color(0xFF00afef),
+                    color: Colors.indigoAccent,
                     width: 2,
                   ),
                 ),
