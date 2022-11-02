@@ -33,7 +33,7 @@ class AppointmentModel {
         start: json["start"],
         end: json["end"],
         title: json["title"],
-        description: json["description"],
+        description: json["description"] ?? "",
         id: json["id"],
         formattedCreatedAt: json["formatted_created_at"],
         formattedUpdatedAt: json["formatted_updated_at"],

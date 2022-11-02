@@ -2,6 +2,7 @@ import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/models/types_model.dart';
 import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
 import 'package:cuivi_medic/ui/providers/types_provider.dart';
+import 'package:cuivi_medic/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class _InformationState extends State<Information> {
   String? aboutMe;
   String? identificationCard;
   List<dynamic>? specialities;
+  bool valueswitch = false;
 
   var isInit = false;
   var _isLoading = false;
@@ -28,16 +30,14 @@ class _InformationState extends State<Information> {
       setState(() {
         _isLoading = true;
       });
-      await Provider.of<DoctorProvider>(context)
-          .professionalInformation(context)
-          .then((value) {
+      Provider.of<DoctorProvider>(
+        context,
+      ).professionalInformation(context).then((value) {
         setState(() {
           _isLoading = false;
         });
       });
-      await Provider.of<TypesProvider>(context)
-          .typesAilments(context)
-          .then((value) {
+      Provider.of<TypesProvider>(context).typesAilments(context).then((value) {
         setState(() {
           _isLoading = false;
         });
@@ -49,7 +49,7 @@ class _InformationState extends State<Information> {
           _isLoading = false;
         });
       });
-      await Provider.of<TypesProvider>(context)
+      Provider.of<TypesProvider>(context, listen: false)
           .typesSpecialities(context)
           .then((value) {
         setState(() {
@@ -86,34 +86,30 @@ class _InformationState extends State<Information> {
             child: Column(
               children: [
                 const Text('Descripcion'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: aboutMe ?? 'Sin informacion',
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: aboutMe ?? 'Sin informacion',
                 ),
                 const SizedBox(height: 10),
                 const Text('Cedula'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: identificationCard ?? 'Sin informacion',
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: identificationCard ?? 'Sin informacion',
                 ),
                 const SizedBox(height: 10),
                 const Text('ubicacion'),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Ubicacion',
-                    border: OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: 'Ubicacion',
                 ),
                 const SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: identificationCard,
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: identificationCard,
                 ),
                 const SizedBox(height: 10),
                 const Text('Especialidad'),
@@ -122,75 +118,87 @@ class _InformationState extends State<Information> {
                         ? List.generate(specialities!.length, (index) {
                             final specialities = professional
                                 .professional.first.specialities[index];
-                            return const TextField(
-                              decoration: InputDecoration(
-                                labelText: '',
-                                border: OutlineInputBorder(),
-                              ),
+                            return InputWidget(
+                              onSubmitted: (p0) {},
+                              validate: (p0) {},
+                              hintText: '',
                             );
                           })
                         : []),
                 const SizedBox(height: 10),
                 const Text('Servicios Medicos'),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Servicios medicos ',
-                    border: OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: 'Servicios medicos ',
                 ),
-                DropdownButton<String>(
-                  value: dropdownValue2,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue2 = newValue!;
-                    });
-                    logger.d(dropdownValue2);
-                  },
-                  items: types.services.map<DropdownMenuItem<String>>((value) {
-                    return DropdownMenuItem<String>(
-                      value: value.name,
-                      child: Text(value.name),
-                    );
-                  }).toList(),
-                ),
+                // DropdownButton<String>(
+                //   value: dropdownValue2,
+                //   icon: const Icon(Icons.arrow_downward),
+                //   elevation: 16,
+                //   style: const TextStyle(color: Colors.deepPurple),
+                //   underline: Container(
+                //     height: 2,
+                //     color: Colors.deepPurpleAccent,
+                //   ),
+                //   onChanged: (String? newValue) {
+                //     setState(() {
+                //       dropdownValue2 = newValue!;
+                //     });
+                //     logger.d(dropdownValue2);
+                //   },
+                //   items: types.services.map<DropdownMenuItem<String>>((value) {
+                //     return DropdownMenuItem<String>(
+                //       value: value.name,
+                //       child: Text(value.name),
+                //     );
+                //   }).toList(),
+                // ),
                 const SizedBox(height: 10),
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                    logger.d(dropdownValue);
-                  },
-                  items: types.ailments.map<DropdownMenuItem<String>>((value) {
-                    return DropdownMenuItem<String>(
-                      value: value.name,
-                      child: Text(value.name),
-                    );
-                  }).toList(),
-                ),
+                // DropdownButton<String>(
+                //   value: dropdownValue,
+                //   icon: const Icon(Icons.arrow_downward),
+                //   elevation: 16,
+                //   style: const TextStyle(color: Colors.deepPurple),
+                //   underline: Container(
+                //     height: 2,
+                //     color: Colors.deepPurpleAccent,
+                //   ),
+                //   onChanged: (String? newValue) {
+                //     setState(() {
+                //       dropdownValue = newValue!;
+                //     });
+                //     logger.d(dropdownValue);
+                //   },
+                //   items: types.ailments.map<DropdownMenuItem<String>>((value) {
+                //     return DropdownMenuItem<String>(
+                //       value: value.name,
+                //       child: Text(value.name),
+                //     );
+                //   }).toList(),
+                // ),
                 const Text('Padecimientos que trata'),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Padecimientos que trata ',
-                    border: OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: 'Padecimientos que trata ',
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Servicio para aseguradoras'),
+                    Switch(
+                        value: valueswitch,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            valueswitch = newValue;
+                          });
+                        })
+                  ],
                 ),
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 79, 98, 202)),
                     onPressed: () {},
                     child: const Text('Actualizar Información'))
               ],

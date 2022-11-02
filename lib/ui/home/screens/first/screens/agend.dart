@@ -189,10 +189,13 @@ class _AgendState extends State<Agend> {
                                     ),
                                     SizedBox(height: 5),
                                     Text(
-                                      info.description,
+                                      info.description
+                                          .replaceAll("<p>", "")
+                                          .replaceAll("</p>", ""),
                                       style:
                                           const TextStyle(color: Colors.white),
                                     ),
+                                    // ignore: prefer_const_constructors
                                     Text(
                                       'Paciente',
                                       style: const TextStyle(

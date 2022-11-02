@@ -23,6 +23,7 @@ class AppointmentServices {
       rethrow;
     }
   }
+
   Future<Response> createAppointment(
     context,
     day,
@@ -32,6 +33,7 @@ class AppointmentServices {
     title,
     decription,
   ) async {
+    logger.d(start);
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('access_token');
     var dio = DioConfiguration(context).createDio();
