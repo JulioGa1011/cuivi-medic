@@ -28,7 +28,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: const [AddPrescription()],
+          children: [AddPrescription()],
         ),
       ),
     );

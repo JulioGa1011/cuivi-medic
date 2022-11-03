@@ -3,8 +3,11 @@
 import 'package:cuivi_medic/ui/auth/screens/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../widgets/input_widget.dart';
+import '../../home/home_screen.dart';
+import '../../services/login_services.dart';
 
 class SignupPage extends StatefulWidget {
   static const route = 'signup';
@@ -24,45 +27,39 @@ class _SignupPageState extends State<SignupPage> {
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final _isLoading = false;
 
-  // void _submitForm() {
-  //   if (_formKey.currentState!.validate()) {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     LoginServices(context)
-  //         .registerUser(
-  //       name: _nameController.text,
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //       passwordConfirmation: _confirmPasswordController.text,
-  //     )
-  //         .then((value) {
-  //       LoginServices(context)
-  //           .requestLogin(
-  //         _emailController.text,
-  //         _passwordController.text,
-  //       )
-  //           .then((value) {
-  //         setState(() {
-  //           _isLoading = false;
-  //         });
-  //         Navigator.pushAndRemoveUntil(
-  //           context,
-  //           PageTransition(
-  //             type: PageTransitionType.bottomToTop,
-  //             child: const HomeScreen(),
-  //           ),
-  //           (Route<dynamic> route) => false,
-  //         );
-  //       });
-  //     }).catchError((error) {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     });
-  //   }
-  //   return;
-  // }
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {});
+      LoginServices(context)
+          .registerUser(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        passwordConfirmation: _confirmPasswordController.text,
+      )
+          .then((value) {
+        LoginServices(context)
+            .requestLogin(
+          _emailController.text,
+          _passwordController.text,
+        )
+            .then((value) {
+          setState(() {});
+          Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+              type: PageTransitionType.bottomToTop,
+              child: const HomeScreen(),
+            ),
+            (Route<dynamic> route) => false,
+          );
+        });
+      }).catchError((error) {
+        setState(() {});
+      });
+    }
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -198,6 +195,7 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                             onPressed: () {
+                              _submitForm();
                               // _login(context);
                             },
                           ),

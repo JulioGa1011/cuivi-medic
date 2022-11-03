@@ -15,13 +15,14 @@ class _MedicalWidgetState extends State<MedicalWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50,
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 211, 231, 248),
+        color: Colors.white,
         border: Border.all(
-          color: const Color(0xFF04589A),
-          width: 4,
+          color: Colors.indigo,
+          width: 1,
         ),
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -31,7 +32,7 @@ class _MedicalWidgetState extends State<MedicalWidget> {
             children: [
               Icon(
                 widget.icon,
-                color: Colors.blue,
+                color: Colors.indigo,
               ),
               const SizedBox(width: 10),
               Text(widget.text)

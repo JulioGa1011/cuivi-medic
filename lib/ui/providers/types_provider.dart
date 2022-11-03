@@ -1,5 +1,7 @@
 import 'package:cuivi_medic/main.dart';
+import 'package:cuivi_medic/ui/models/presentation_model.dart';
 import 'package:cuivi_medic/ui/models/types_model.dart';
+import 'package:cuivi_medic/ui/models/types_params_model.dart';
 import 'package:cuivi_medic/ui/services/types_service.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,6 +18,10 @@ class TypesProvider extends ChangeNotifier {
   List<TypesModel> get services => _services;
   final List<TypesModel> _ailments = [];
   List<TypesModel> get ailments => _ailments;
+  final List<TypesModel> _administration = [];
+  List<TypesModel> get administration => _administration;
+  final List<PresentationModel> _presentation = [];
+  List<PresentationModel> get presentation => _presentation;
 
   Future<void> typesProvider(context) async {
     _types.clear();
@@ -73,6 +79,28 @@ class TypesProvider extends ChangeNotifier {
       _ailments.add(TypesModel.fromJson(element));
     });
     logger.d(res.data['data']);
+
+    notifyListeners();
+  }
+
+  Future<void> typesPresentation(context) async {
+    _presentation.clear();
+    final res = await TypesServices().presentationTypes(context);
+    res.data['data'].forEach((element) {
+      _presentation.add(PresentationModel.fromJson(element));
+    });
+    logger.d(res.data['data']);
+
+    notifyListeners();
+  }
+
+  Future<void> typesAdministration(context) async {
+    _administration.clear();
+    final res = await TypesServices().AdministrationTypes(context);
+    res.data['data'].forEach((element) {
+      _administration.add(TypesModel.fromJson(element));
+    });
+    // logger.d(res.data['data']);
 
     notifyListeners();
   }

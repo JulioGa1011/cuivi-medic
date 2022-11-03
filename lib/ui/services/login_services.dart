@@ -19,7 +19,7 @@ class LoginServices {
       "grant_type": "password",
       "scope": "*",
       "client_id": dotenv.env['clientId'],
-      "client_secret": dotenv.env['clientSecret'],
+      "client_secret": "e1mUTviUulN6rdkSR3sWdDrx04nACNVHMYn9ARyM",
       "username": email,
       "password": password,
     };
@@ -36,6 +36,35 @@ class LoginServices {
       return response;
     } on DioError {
       logger.d('error');
+      rethrow;
+    }
+  }
+
+  Future<Response> registerUser({
+    required String name,
+    required String email,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    var data = {
+      "email": email,
+      "name": name,
+      "password": password,
+      'password_confirmation': passwordConfirmation,
+      'client_secret': dotenv.env['clientSecret'],
+      'client_id': dotenv.env['clientId'],
+      'scope': '*',
+      'grant_type': 'password',
+    };
+    Response response;
+    try {
+      response = await dio.post(
+        "register/medic",
+        options: Options(headers: {"requirestoken": false}),
+        data: data,
+      );
+      return response;
+    } on DioError {
       rethrow;
     }
   }

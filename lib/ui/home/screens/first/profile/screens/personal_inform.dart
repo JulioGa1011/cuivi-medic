@@ -76,7 +76,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 InputWidget(
                   onSubmitted: (p0) {},
                   validate: (p0) {},
-                  hintText: personal.add.first.healthStaff.aboutMe!,
+                  hintText: personal.add.first.healthStaff.aboutMe ?? "",
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(

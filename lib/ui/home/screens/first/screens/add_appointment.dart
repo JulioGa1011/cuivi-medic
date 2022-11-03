@@ -34,6 +34,8 @@ class _AddAppointmentState extends State<AddAppointment> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
   PatientModel? selectedItem;
+  int? mont;
+  int? day;
   var isInit = false;
 
   var _isLoading = false;
@@ -65,6 +67,7 @@ class _AddAppointmentState extends State<AddAppointment> {
       actions: [
         TextButton(
             onPressed: () {
+              if (date!.month >= 9) {}
               if (start!.hour >= 9) {
                 _start.text = "0${start!.format(context).split(" ").first}";
                 setState(() {});

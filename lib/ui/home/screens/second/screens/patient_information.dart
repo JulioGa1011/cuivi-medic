@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/home/screens/second/screens/patient_modify.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/medical_widget.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/show_alergy.dart';
@@ -120,7 +121,8 @@ class _PatientsInformationState extends State<PatientsInformation> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context);
+            logger.d("regresar");
+            Navigator.pop(context);
           },
           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         ),
@@ -129,6 +131,26 @@ class _PatientsInformationState extends State<PatientsInformation> {
           'Perfil del paciente',
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: PatientModify(
+                          patient: patient.first,
+                          expedient: expedient,
+                          paramId: widget.patientId,
+                        ),
+                      );
+                    });
+              },
+              icon: Icon(
+                Icons.edit,
+                color: Colors.black,
+              ))
+        ],
       ),
       body: _isLoading
           ? const Center(
@@ -165,10 +187,10 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.03,
                               ),
-                              PatientModify(
-                                expedient: expedient,
-                                paramId: widget.patientId,
-                              ),
+                              // PatientModify(
+                              //   expedient: expedient,
+                              //   paramId: widget.patientId,
+                              // ),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02,
@@ -299,10 +321,18 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                             child: const Center(
                                                 child: Text(
                                                     'Contenido de la nota ')),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
+                                  ),
+                                  Center(
+                                    child: TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          "Reportar paciente",
+                                          style: TextStyle(color: Colors.red),
+                                        )),
                                   )
                                 ],
                               ),

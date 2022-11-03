@@ -4,10 +4,13 @@ import 'package:cuivi_medic/ui/home/screens/first/screens/add_appointment.dart';
 import 'package:cuivi_medic/ui/home/screens/first/screens/agend.dart';
 import 'package:cuivi_medic/ui/home/screens/first/widgets/items.dart';
 import 'package:cuivi_medic/ui/home/screens/first/widgets/profile_button.dart';
+import 'package:cuivi_medic/ui/providers/types_provider.dart';
+import 'package:cuivi_medic/ui/services/types_service.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -20,7 +23,6 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   final CarouselController _controller = CarouselController();
   TextEditingController search = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -120,19 +122,19 @@ class _FirstScreenState extends State<FirstScreen> {
                               ],
                             ),
                             Spacer(),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Center(
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      FontAwesomeIcons.bell,
-                                      color: Colors.indigo,
-                                    )),
-                              ),
-                            ),
+                            // Card(
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(8.0),
+                            //   ),
+                            //   child: Center(
+                            //     child: IconButton(
+                            //         onPressed: () {},
+                            //         icon: const Icon(
+                            //           FontAwesomeIcons.bell,
+                            //           color: Colors.indigo,
+                            //         )),
+                            //   ),
+                            // ),
                             Spacer()
                           ],
                         ),
