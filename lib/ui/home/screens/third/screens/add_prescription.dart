@@ -1,9 +1,14 @@
+import 'dart:math';
+
 import 'package:cuivi_medic/main.dart';
+import 'package:cuivi_medic/ui/home/screens/second/widgets/show_alergy.dart';
 import 'package:cuivi_medic/ui/home/screens/third/screens/medicaments.dart';
+import 'package:cuivi_medic/ui/models/expedient_model.dart';
 import 'package:cuivi_medic/ui/models/medicament_model.dart';
 import 'package:cuivi_medic/ui/models/patient_model.dart';
 import 'package:cuivi_medic/ui/models/presentation_model.dart';
 import 'package:cuivi_medic/ui/models/types_model.dart';
+import 'package:cuivi_medic/ui/providers/medicament_provider.dart';
 import 'package:cuivi_medic/ui/providers/patient_provider.dart';
 import 'package:cuivi_medic/ui/providers/types_provider.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
@@ -17,7 +22,9 @@ const List<String> list = <String>['paciente', 'Two', 'Three', 'Four'];
 
 class AddPrescription extends StatefulWidget {
   PatientModel? patient;
-  AddPrescription({Key? key, this.patient}) : super(key: key);
+  List<PatientExpedientModel>? expedient;
+
+  AddPrescription({Key? key, this.patient, this.expedient}) : super(key: key);
 
   @override
   State<AddPrescription> createState() => _AddPrescriptionState();
@@ -48,14 +55,13 @@ class _AddPrescriptionState extends State<AddPrescription> {
   var _isLoading = false;
   int? idAdministration;
   int? idPresentation;
+  int? idSubstance;
   var isInit = false;
+  bool presentation = false;
 
   @override
   void didChangeDependencies() async {
     if (!isInit) {
-      setState(() {
-        _isLoading = true;
-      });
       Provider.of<TypesProvider>(context)
           .typesAdministration(context)
           .then((value) {
@@ -63,8 +69,9 @@ class _AddPrescriptionState extends State<AddPrescription> {
           _isLoading = false;
         });
       });
-      Provider.of<TypesProvider>(context)
-          .typesPresentation(context)
+
+      Provider.of<MedicamentProvider>(context)
+          .substanceProvider(context)
           .then((value) {
         setState(() {
           _isLoading = false;
@@ -103,12 +110,33 @@ class _AddPrescriptionState extends State<AddPrescription> {
     });
   }
 
+  static List<PresentationModel> _kOptions = <PresentationModel>[];
+  static String _displayStringForOption(PresentationModel option) =>
+      option.name;
+  static List<TypesModel> _substance = <TypesModel>[];
+  static String _optionSubstance(TypesModel option) => option.name;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final administration = Provider.of<TypesProvider>(context);
-    logger.d(administration.presentation.length);
+    final substance = Provider.of<MedicamentProvider>(context);
+    if (widget.patient != null) {
+      _name.text = widget.patient!.name!;
+      _email.text = widget.patient!.email!;
+    }
+    ;
 
+    substance.values.forEach(
+      (element) {
+        _substance.add(element);
+        setState(() {});
+      },
+    );
+    administration.presentation.forEach(((element) {
+      _kOptions.add(element);
+      logger.d(element);
+    }));
     // final patients = Provider.of<PatientModel>(con7y992text);
     // logger.d(patients);
     return Padding(
@@ -207,6 +235,9 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                     MediaQuery.of(context).size.height * 0.5,
                                 child: SingleChildScrollView(
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       InputWidget(
                                         hintText: 'Nombre',
@@ -237,6 +268,10 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                           hintText: 'Alergias',
                                           onSubmitted: (value) {},
                                           validate: (num) {}),
+                                      widget.expedient != null
+                                          ? ShowAllergies(
+                                              expedient: widget.expedient!)
+                                          : SizedBox(),
                                       const SizedBox(height: 20),
                                       InputWidget(
                                           hintText: 'Fecha de nacimiento',
@@ -334,15 +369,83 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                 child: Column(
                                                   children: [
                                                     const SizedBox(height: 20),
-                                                    InputWidget(
-                                                      hintText:
-                                                          'Sustancia activa ',
-                                                      onSubmitted: (value) {},
-                                                      validate: (num) {},
-                                                      controller:
-                                                          _medicamentName,
-                                                    ),
+                                                    // InputWidget(
+                                                    //   hintText:
+                                                    //       'Sustancia activa ',
+                                                    //   onSubmitted: (value) {},
+                                                    //   validate: (num) {},
+                                                    //   controller:
+                                                    //       _medicamentName,
+                                                    // ),
+                                                    // const SizedBox(height: 20),
+                                                    Text("Sustancia activa"),
+                                                    Container(
+                                                        width: size.width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            color:
+                                                                Colors.indigo,
+                                                            width: 1,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                          color: Colors.white,
+                                                        ),
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      size.width *
+                                                                          .03),
+                                                          child: Autocomplete<
+                                                              TypesModel>(
+                                                            displayStringForOption:
+                                                                _optionSubstance,
+                                                            optionsBuilder:
+                                                                (TextEditingValue
+                                                                    textEditingValue) {
+                                                              if (textEditingValue
+                                                                      .text ==
+                                                                  ' ') {
+                                                                return const Iterable<
+                                                                    TypesModel>.empty();
+                                                              }
+                                                              return _substance
+                                                                  .where((TypesModel
+                                                                      option) {
+                                                                return option
+                                                                    .toString()
+                                                                    .contains(
+                                                                        textEditingValue
+                                                                            .text
+                                                                            .toLowerCase());
+                                                                logger
+                                                                    .d(option);
+                                                              });
+                                                            },
+                                                            onSelected: (TypesModel
+                                                                selection) async {
+                                                              setState(() {
+                                                                presentation =
+                                                                    true;
+                                                                TypesProvider()
+                                                                    .typesPresentation(
+                                                                        context,
+                                                                        selection
+                                                                            .id);
+
+                                                                logger.d(
+                                                                    selection
+                                                                        .id);
+                                                              });
+                                                            },
+                                                          ),
+                                                        )),
                                                     const SizedBox(height: 20),
+
                                                     InputWidget(
                                                       hintText:
                                                           'Nombre Comercial',
@@ -350,81 +453,139 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                       validate: (num) {},
                                                       controller: _tradename,
                                                     ),
+                                                    // const SizedBox(height: 20),
+                                                    // Container(
+                                                    //   width: size.width,
+                                                    //   decoration: BoxDecoration(
+                                                    //     border: Border.all(
+                                                    //       color: Colors.indigo,
+                                                    //       width: 1,
+                                                    //     ),
+                                                    //     borderRadius:
+                                                    //         BorderRadius
+                                                    //             .circular(10.0),
+                                                    //     color: Colors.white,
+                                                    //   ),
+                                                    //   child: Padding(
+                                                    //     padding: EdgeInsets
+                                                    //         .symmetric(
+                                                    //             horizontal:
+                                                    //                 size.width *
+                                                    //                     .03),
+                                                    //     child: DropdownButton<
+                                                    //             PresentationModel>(
+                                                    //         iconEnabledColor:
+                                                    //             Color(
+                                                    //                 0xff0F70B7),
+                                                    //         borderRadius:
+                                                    //             BorderRadius
+                                                    //                 .circular(
+                                                    //                     10),
+                                                    //         isExpanded: true,
+                                                    //         value:
+                                                    //             presentationItem,
+                                                    //         hint: Text(
+                                                    //           'Presentación',
+                                                    //           style: TextStyle(
+                                                    //             color: Colors
+                                                    //                 .black54,
+                                                    //             fontSize:
+                                                    //                 size.width *
+                                                    //                     .035,
+                                                    //           ),
+                                                    //         ),
+                                                    //         underline:
+                                                    //             Container(),
+                                                    //         items: administration
+                                                    //             .presentation
+                                                    //             .map(
+                                                    //                 (PresentationModel
+                                                    //                     value) {
+                                                    //           return DropdownMenuItem<
+                                                    //                   PresentationModel>(
+                                                    //               value: value,
+                                                    //               child: Text(
+                                                    //                   value
+                                                    //                       .name));
+                                                    //         }).toList(),
+                                                    //         onChanged:
+                                                    //             (PresentationModel?
+                                                    //                 presentation) {
+                                                    //           setState(() {
+                                                    //             presentationItem =
+                                                    //                 presentation;
+                                                    //             idPresentation =
+                                                    //                 presentation!
+                                                    //                     .id;
+                                                    //           });
+                                                    //         }),
+                                                    //   ),
+                                                    // ),
                                                     const SizedBox(height: 20),
+                                                    // InputWidget(
+                                                    //   hintText: 'Presentación',
+                                                    //   onSubmitted: (value) {},
+                                                    //   validate: (num) {},
+                                                    //   controller: _presentation,
+                                                    // ),
+
+                                                    Text("Presentacion"),
                                                     Container(
-                                                      width: size.width,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          color: Colors.indigo,
-                                                          width: 1,
+                                                        width: size.width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            color:
+                                                                Colors.indigo,
+                                                            width: 1,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                          color: Colors.white,
                                                         ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                        color: Colors.white,
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    size.width *
-                                                                        .03),
-                                                        child: DropdownButton<
-                                                                PresentationModel>(
-                                                            iconEnabledColor:
-                                                                Color(
-                                                                    0xff0F70B7),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            isExpanded: true,
-                                                            value:
-                                                                presentationItem,
-                                                            hint: Text(
-                                                              'Presentación',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black54,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        .035,
-                                                              ),
-                                                            ),
-                                                            underline:
-                                                                Container(),
-                                                            items: administration
-                                                                .presentation
-                                                                .map(
-                                                                    (PresentationModel
-                                                                        value) {
-                                                              return DropdownMenuItem<
-                                                                      PresentationModel>(
-                                                                  value: value,
-                                                                  child: Text(
-                                                                      value
-                                                                          .name));
-                                                            }).toList(),
-                                                            onChanged:
-                                                                (PresentationModel?
-                                                                    presentation) {
-                                                              setState(() {
-                                                                presentationItem =
-                                                                    presentation;
-                                                                idPresentation =
-                                                                    presentation!
-                                                                        .id;
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      size.width *
+                                                                          .03),
+                                                          child: Autocomplete<
+                                                              PresentationModel>(
+                                                            displayStringForOption:
+                                                                _displayStringForOption,
+                                                            optionsBuilder:
+                                                                (TextEditingValue
+                                                                    textEditingValue) {
+                                                              if (textEditingValue
+                                                                      .text ==
+                                                                  ' ') {
+                                                                return const Iterable<
+                                                                    PresentationModel>.empty();
+                                                              }
+                                                              return _kOptions.where(
+                                                                  (PresentationModel
+                                                                      option) {
+                                                                return option
+                                                                    .toString()
+                                                                    .contains(
+                                                                        textEditingValue
+                                                                            .text
+                                                                            .toLowerCase());
                                                               });
-                                                            }),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 20),
-                                                    InputWidget(
-                                                      hintText: 'Presentación',
-                                                      onSubmitted: (value) {},
-                                                      validate: (num) {},
-                                                      controller: _presentation,
-                                                    ),
+                                                            },
+                                                            onSelected:
+                                                                (PresentationModel
+                                                                    selection) {
+                                                              logger.d(
+                                                                  selection.id);
+                                                              debugPrint(
+                                                                  'You just selected ${_displayStringForOption(selection)}');
+                                                            },
+                                                          ),
+                                                        )),
+
                                                     const SizedBox(height: 20),
                                                     InputWidget(
                                                       hintText: 'Gramaje',
@@ -690,8 +851,6 @@ class _AddPrescriptionState extends State<AddPrescription> {
                               ),
                             ),
                             onPressed: () {
-                              logger.d(page);
-
                               if (page < 3) {
                                 setState(() {
                                   page = page + 1;

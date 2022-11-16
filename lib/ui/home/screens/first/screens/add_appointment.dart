@@ -26,6 +26,7 @@ class _AddAppointmentState extends State<AddAppointment> {
   List<String> patientListName = ["seleccione un paciente"];
   int? idPatient;
   String? namePatient;
+  bool? addPatient = false;
 
   final TextEditingController _appointment = TextEditingController();
   final TextEditingController _start = TextEditingController();
@@ -88,10 +89,7 @@ class _AddAppointmentState extends State<AddAppointment> {
 
               AppointmentServices().createAppointment(
                   context,
-                  DateFormat.yMd()
-                      .format(date!)
-                      .toString()
-                      .replaceAll("/", "-"),
+                  date.toString().split(" ").first,
                   _start.text,
                   _end.text,
                   idPatient,
@@ -108,39 +106,68 @@ class _AddAppointmentState extends State<AddAppointment> {
       content: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: size.width * .7,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * .03),
-                child: DropdownButton<PatientModel>(
-                    iconEnabledColor: Color(0xff0F70B7),
+            Row(
+              children: [
+                Container(
+                  width: size.width * .5,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
                     borderRadius: BorderRadius.circular(10),
-                    isExpanded: true,
-                    value: selectedItem,
-                    hint: Text(
-                      'Elige un paciente', // !
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: size.width * .035,
-                      ),
-                    ),
-                    underline: Container(),
-                    items: patient.add.map((PatientModel value) {
-                      return DropdownMenuItem<PatientModel>(
-                          value: value, child: Text(value.name!));
-                    }).toList(),
-                    onChanged: (PatientModel? newValue) {
-                      selectedItem = newValue;
-                      setState(() {
-                        idPatient = newValue!.id;
-                      });
-                    }),
-              ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .03),
+                    child: DropdownButton<PatientModel>(
+                        iconEnabledColor: Color(0xff0F70B7),
+                        borderRadius: BorderRadius.circular(10),
+                        isExpanded: true,
+                        value: selectedItem,
+                        hint: Text(
+                          'Elige un paciente', // !
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: size.width * .035,
+                          ),
+                        ),
+                        underline: Container(),
+                        items: patient.add.map((PatientModel value) {
+                          return DropdownMenuItem<PatientModel>(
+                              value: value, child: Text(value.name!));
+                        }).toList(),
+                        onChanged: (PatientModel? newValue) {
+                          selectedItem = newValue;
+                          setState(() {
+                            idPatient = newValue!.patientId;
+                          });
+                        }),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    addPatient = true;
+                    setState(() {});
+                  },
+                )
+              ],
             ),
+            const SizedBox(height: 10),
+            addPatient!
+                ? InputWidget(
+                    onSaved: (p0) {},
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    onSubmitted: (text) {},
+                    textCapitalization: TextCapitalization.none,
+                    validate: (text) {
+                      if (text!.trim().isEmpty) {
+                        return 'Este campo es requerido';
+                      }
+                      return null;
+                    },
+                    hintText: 'Paciente',
+                    textInputAction: TextInputAction.next,
+                    textInputType: TextInputType.emailAddress,
+                  )
+                : SizedBox(),
             const SizedBox(height: 10),
             GestureDetector(
               onTap: () async {
@@ -205,7 +232,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                       if (start != null) {
                         end = await showCustomTimePicker(
                           context: context,
-                          initialTime: TimeOfDay.now(),
+                          initialTime: start!,
                           helpText: 'Hora de termino',
                           onFailValidation: (ctx) {
                             showDialog(

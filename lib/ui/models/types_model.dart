@@ -24,7 +24,7 @@ class TypesModel {
 
   factory TypesModel.fromJson(Map<String, dynamic> json) => TypesModel(
         id: json["id"],
-        name: json["name"],
+        name: json["name"] ?? "",
         formattedCreatedAt: json["formatted_created_at"],
         formattedUpdatedAt: json["formatted_updated_at"],
       );
@@ -35,4 +35,20 @@ class TypesModel {
         "formatted_created_at": formattedCreatedAt,
         "formatted_updated_at": formattedUpdatedAt,
       };
+
+  @override
+  String toString() {
+    return '$id, $name';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is TypesModel && other.name == name && other.id == id;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
 }

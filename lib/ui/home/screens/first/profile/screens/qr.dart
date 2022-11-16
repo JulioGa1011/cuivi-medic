@@ -35,6 +35,7 @@ class _QrState extends State<Qr> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final personal = Provider.of<DoctorProvider>(context);
 
     return _isLoading
@@ -44,10 +45,14 @@ class _QrState extends State<Qr> {
                 child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text(personal.add.first.qrCode!.split(',').last),
-                  SvgPicture.memory(
-                    base64Decode(personal.add.first.qrCode!.split(',').last),
-                    fit: BoxFit.cover,
+                  Text('QR'),
+                  Container(
+                    height: size.height * 0.3,
+                    width: size.height * 0.3,
+                    child: SvgPicture.memory(
+                      base64Decode(personal.add.first.qrCode!.split(',').last),
+                      fit: BoxFit.cover,
+                    ),
                   )
                 ],
               ),

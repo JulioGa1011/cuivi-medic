@@ -4,6 +4,7 @@ import 'package:cuivi_medic/ui/home/home_screen.dart';
 import 'package:cuivi_medic/ui/home/tutoria_page.dart';
 import 'package:cuivi_medic/ui/providers/appointment_provider.dart';
 import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
+import 'package:cuivi_medic/ui/providers/medicament_provider.dart';
 import 'package:cuivi_medic/ui/providers/params_provider.dart';
 import 'package:cuivi_medic/ui/providers/patient_provider.dart';
 import 'package:cuivi_medic/ui/providers/store_provider.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TypesProvider()),
         ChangeNotifierProvider(create: (_) => ParamsProvider()),
         ChangeNotifierProvider(create: (_) => StoreProvider()),
+        ChangeNotifierProvider(create: (_) => MedicamentProvider()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,

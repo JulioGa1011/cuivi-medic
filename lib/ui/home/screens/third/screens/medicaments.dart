@@ -16,7 +16,6 @@ class _MedicamentsState extends State<Medicaments> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    logger.d(widget.medicaments.length);
     return widget.medicaments.isNotEmpty
         ? Column(
             children: List.generate(widget.medicaments.length, (int index) {

@@ -98,17 +98,16 @@ class TypesServices {
     }
   }
 
-  Future<Response> presentationTypes(context) async {
+  Future<Response> presentationTypes(context, id) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('access_token');
     var dio = DioConfiguration(context).createDio();
     dio.options.headers['Authorization'] = 'Bearer $accessToken';
     try {
       Response response =
-          await dio.get('medicament-presentations', queryParameters: {
-        'columns': '["id","name"]',
+          await dio.get('medic/medicines/$id/presentations', queryParameters: {
+        'columns': '["name"]',
       });
-      logger.d(response);
       return response;
     } on DioError {
       rethrow;

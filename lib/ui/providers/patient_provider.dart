@@ -17,7 +17,6 @@ class PatientProvider extends ChangeNotifier {
   Future<void> getPatient(context) async {
     _add.clear();
     final res = await PatientServices().getPatients(context);
-    logger.d(res.data);
     res.data["data"].forEach((element) {
       _add.add(PatientModel.fromJson(element));
     });

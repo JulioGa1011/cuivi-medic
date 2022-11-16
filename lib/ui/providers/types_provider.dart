@@ -22,6 +22,7 @@ class TypesProvider extends ChangeNotifier {
   List<TypesModel> get administration => _administration;
   final List<PresentationModel> _presentation = [];
   List<PresentationModel> get presentation => _presentation;
+  static List<PresentationModel> kOptions = <PresentationModel>[];
 
   Future<void> typesProvider(context) async {
     _types.clear();
@@ -83,13 +84,16 @@ class TypesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> typesPresentation(context) async {
+  Future<void> typesPresentation(context, id) async {
     _presentation.clear();
-    final res = await TypesServices().presentationTypes(context);
+    final res = await TypesServices().presentationTypes(context, id);
     res.data['data'].forEach((element) {
       _presentation.add(PresentationModel.fromJson(element));
     });
-    logger.d(res.data['data']);
+    logger.d(res.data);
+    presentation.forEach((element) {
+      kOptions.add(element);
+    });
 
     notifyListeners();
   }

@@ -97,6 +97,7 @@ class _PatientModifyState extends State<PatientModify> {
                           ),
                           body: AddPrescription(
                             patient: widget.patient,
+                            expedient: widget.expedient,
                           ));
                     });
               },
