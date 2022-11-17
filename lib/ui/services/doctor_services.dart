@@ -1,3 +1,4 @@
+import 'package:cuivi_medic/main.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +16,7 @@ class DoctorServices {
         'medic/personal-data',
         // queryParameters: {'columns': '["name","phone"]',}
       );
+      logger.d(response);
       return response;
     } on DioError {
       rethrow;

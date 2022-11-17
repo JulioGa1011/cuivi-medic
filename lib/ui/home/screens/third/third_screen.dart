@@ -13,25 +13,24 @@ class _ThirdScreenState extends State<ThirdScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const AppBarWidget(
-          title: Text(
-            'Recetas Medicas',
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-            ),
+      appBar: const AppBarWidget(
+        centerTitle: true,
+        title: Text(
+          'Crear receta',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black,
           ),
-          actions: [
-            // ProfileButton(),
-          ],
         ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Column(
-            children: const [AddPrescription()],
-          ),
-        ));
+        actions: [
+          // ProfileButton(),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [AddPrescription()],
+        ),
+      ),
+    );
   }
 }

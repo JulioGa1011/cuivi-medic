@@ -24,7 +24,10 @@ class DoctorProvider extends ChangeNotifier {
       status: res.data['status'],
       updatedAt: res.data['updated_at'],
       profilePhotoUrl: res.data['profile_photo_url'],
-      healthStaff: HealthStaff.fromJson(res.data['health_staff']),
+      qrCode: res.data["qr_code"],
+      healthStaff: HealthStaff.fromJson(
+        res.data['health_staff'],
+      ),
     ));
 
     notifyListeners();

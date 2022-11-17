@@ -1,4 +1,5 @@
 import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
+import 'package:cuivi_medic/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,46 +45,43 @@ class _PersonalInformationState extends State<PersonalInformation> {
             child: Column(
               children: [
                 const Text('Nombre'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '${personal.add.first.name}',
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: '${personal.add.first.name}',
                 ),
                 const SizedBox(height: 10),
                 const Text('Email'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '${personal.add.first.email}',
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: '${personal.add.first.email}',
                 ),
                 const SizedBox(height: 10),
                 const Text('Telefono'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '${personal.add.first.phone}',
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: '${personal.add.first.phone}',
                 ),
                 const SizedBox(height: 10),
                 const Text('Numero de consultorio'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '${personal.add.first.healthStaff.officePhone}',
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: '${personal.add.first.healthStaff.officePhone}',
                 ),
                 const SizedBox(height: 10),
                 const Text('Acerca de mi'),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: personal.add.first.healthStaff.aboutMe!,
-                    border: const OutlineInputBorder(),
-                  ),
+                InputWidget(
+                  onSubmitted: (p0) {},
+                  validate: (p0) {},
+                  hintText: personal.add.first.healthStaff.aboutMe ?? "",
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 79, 98, 202)),
                     onPressed: () {},
                     child: const Text('Actualizar Información'))
               ],

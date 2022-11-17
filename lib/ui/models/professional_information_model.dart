@@ -46,7 +46,8 @@ class ProfessionalInformartion {
         aboutMe: json["about_me"],
         identificationCard: json["identification_card"],
         createdAt: json["created_at"],
-        updatedAt: DateTime.parse(json["updated_at"]),
+        updatedAt:
+            DateTime.parse(json["updated_at"] ?? DateTime.now().toString()),
         deletedAt: json["deleted_at"],
         address: Address.fromJson(json["address"]),
         medicalServices:
@@ -90,8 +91,8 @@ class Address {
   factory Address.fromJson(Map<String, dynamic> json) => Address(
         id: json["id"],
         location: json["location"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        latitude: json["latitude"].toString(),
+        longitude: json["longitude"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

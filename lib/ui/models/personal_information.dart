@@ -1,20 +1,20 @@
 class PersonalInformation {
-  PersonalInformation({
-    this.id,
-    this.userTypeId,
-    this.name,
-    this.phone,
-    this.email,
-    this.emailVerifiedAt,
-    this.currentTeamId,
-    this.profilePhotoPath,
-    this.status,
-    // this.createdAt,
-    this.updatedAt,
-    // this.deletedAt,
-    this.profilePhotoUrl,
-    required this.healthStaff,
-  });
+  PersonalInformation(
+      {this.id,
+      this.userTypeId,
+      this.name,
+      this.phone,
+      this.email,
+      this.emailVerifiedAt,
+      this.currentTeamId,
+      this.profilePhotoPath,
+      this.status,
+      // this.createdAt,
+      this.updatedAt,
+      // this.deletedAt,
+      this.profilePhotoUrl,
+      required this.healthStaff,
+      this.qrCode});
 
   int? id;
   int? userTypeId;
@@ -30,6 +30,7 @@ class PersonalInformation {
   // dynamic deletedAt;
   String? profilePhotoUrl;
   HealthStaff healthStaff;
+  String? qrCode;
 
   factory PersonalInformation.fromJson(Map<String, dynamic> json) =>
       PersonalInformation(
@@ -46,7 +47,10 @@ class PersonalInformation {
         updatedAt: json["updated_at"],
         // deletedAt: json["deleted_at"],
         profilePhotoUrl: json["profile_photo_url"],
-        healthStaff: HealthStaff.fromJson(json["health_staff"]),
+        healthStaff: HealthStaff.fromJson(
+          json["health_staff"],
+        ),
+        qrCode: json["qr_code"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,6 +68,7 @@ class PersonalInformation {
         // "deleted_at": deletedAt,
         "profile_photo_url": profilePhotoUrl,
         "health_staff": healthStaff.toJson(),
+        "qr_code": qrCode
       };
 }
 
@@ -98,7 +103,8 @@ class HealthStaff {
         aboutMe: json["about_me"],
         identificationCard: json["identification_card"],
         createdAt: json["created_at"],
-        updatedAt: DateTime.parse(json["updated_at"]),
+        updatedAt:
+            DateTime.parse(json["updated_at"] ?? DateTime.now().toString()),
         deletedAt: json["deleted_at"],
       );
 

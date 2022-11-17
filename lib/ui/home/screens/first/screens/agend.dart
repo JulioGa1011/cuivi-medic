@@ -33,9 +33,10 @@ class _AgendState extends State<Agend> {
       Provider.of<AppointmentProvider>(context)
           .getAppointment(context)
           .then((value) {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted)
+          setState(() {
+            _isLoading = false;
+          });
       });
       isInit = true;
       super.didChangeDependencies();
@@ -58,6 +59,17 @@ class _AgendState extends State<Agend> {
       child: Column(
         children: [
           TableCalendar(
+            calendarStyle: const CalendarStyle(
+              todayDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Color(0xFF9FA8DA),
+                  shape: BoxShape.rectangle),
+              selectedDecoration: BoxDecoration(
+                  //borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Color(0xFF5C6BC0),
+                  shape: BoxShape.rectangle),
+            ),
+            headerVisible: false,
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
@@ -112,80 +124,97 @@ class _AgendState extends State<Agend> {
               });
             },
           ),
-          const SizedBox(height: 30),
           Column(
-              children: List.generate(appointment.add.length, (index) {
-            final info = appointment.add[index];
-
-            if (info.appointmentTime.toString().substring(0, 10) ==
-                _focusedDay.toString().substring(0, 10)) {
-              return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.indigo,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      FontAwesomeIcons.clock,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      '${info.start}- ${info.end}',
-                                      style: const TextStyle(
-                                          fontSize: 18, color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      FontAwesomeIcons.calendar,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(info.title,
-                                        style: const TextStyle(
-                                            fontSize: 18, color: Colors.white)),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            const Divider(
-                              height: 2,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              info.description,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(height: 10)
+                  Text('Hora'),
+                  Text('Citas'),
+                  SizedBox(width: 100),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.format_line_spacing_sharp))
                 ],
-              );
-            } else {
-              return const SizedBox();
-            }
-          })),
+              ),
+              Column(
+                  children: List.generate(appointment.add.length, (index) {
+                final info = appointment.add[index];
+
+                if (info.appointmentTime.toString().substring(0, 10) ==
+                    _focusedDay.toString().substring(0, 10)) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.2,
+                            child: Column(children: [
+                              Text(
+                                info.start,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              ),
+                              Text(info.end)
+                            ]),
+                          ),
+                          Container(
+                              height: 100,
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 0, 189, 236),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                              ),
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(info.title,
+                                            style: const TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white)),
+                                        SizedBox(height: 10),
+                                        const Icon(
+                                          Icons.more_vert,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      info.description
+                                          .replaceAll("<p>", "")
+                                          .replaceAll("</p>", ""),
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    // ignore: prefer_const_constructors
+                                    Text(
+                                      'Paciente',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ],
+                      ),
+                      SizedBox(height: 10)
+                    ],
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              })),
+            ],
+          ),
         ],
       ),
     );

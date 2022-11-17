@@ -2,6 +2,7 @@ import 'package:cuivi_medic/ui/home/screens/second/widgets/clinic_history.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/params.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/params_patient.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/show_medicament_patient.dart';
+import 'package:cuivi_medic/ui/models/patient_model.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,8 +14,13 @@ import 'alert_screen_format.dart';
 class PatientModify extends StatefulWidget {
   List<PatientExpedientModel> expedient;
   int paramId;
+  PatientModel patient;
 
-  PatientModify({Key? key, required this.expedient, required this.paramId})
+  PatientModify(
+      {Key? key,
+      required this.expedient,
+      required this.paramId,
+      required this.patient})
       : super(key: key);
 
   @override
@@ -27,7 +33,7 @@ class _PatientModifyState extends State<PatientModify> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       height: MediaQuery.of(context).size.height * 0.06,
-      color: const Color.fromARGB(255, 205, 231, 252),
+      color: Color.fromARGB(255, 162, 176, 252),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -81,15 +87,17 @@ class _PatientModifyState extends State<PatientModify> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const Scaffold(
-                          appBar: AppBarWidget(
+                      return Scaffold(
+                          appBar: const AppBarWidget(
                             isShowBack: true,
                             title: Text(
                               'Crear receta',
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
-                          body: AddPrescription());
+                          body: AddPrescription(
+                            patient: widget.patient,
+                          ));
                     });
               },
               icon: const Icon(FontAwesomeIcons.solidClipboard)),

@@ -107,7 +107,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                                 width: size.width * 0.2,
                                                 child: Image(
                                                   image: NetworkImage(
-                                                    'https://cuivi.app/storage/${prod.photo}',
+                                                    'https://cuivi.cceo.io/storage/${prod.photo}',
                                                   ),
                                                 ),
                                               ),

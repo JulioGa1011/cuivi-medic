@@ -1,3 +1,4 @@
+import 'package:cuivi_medic/main.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -89,6 +90,39 @@ class TypesServices {
     try {
       Response response =
           await dio.get('medical-diagnostics', queryParameters: {
+        'columns': '["id","name"]',
+      });
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  Future<Response> presentationTypes(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString('access_token');
+    var dio = DioConfiguration(context).createDio();
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
+    try {
+      Response response =
+          await dio.get('medicament-presentations', queryParameters: {
+        'columns': '["id","name"]',
+      });
+      logger.d(response);
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  Future<Response> AdministrationTypes(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString('access_token');
+    var dio = DioConfiguration(context).createDio();
+    dio.options.headers['Authorization'] = 'Bearer $accessToken';
+    try {
+      Response response =
+          await dio.get('administration-forms', queryParameters: {
         'columns': '["id","name"]',
       });
       return response;

@@ -17,17 +17,17 @@ class MedicamentModel {
     required this.name,
     // this.personalDescription,
     // this.firstHour,
-    // this.days,
-    // this.hours,
+    this.days,
+    this.hours,
     // this.deletedAt,
     // this.createdAt,
     // this.updatedAt,
     required this.tradename,
-    // this.administrationFormId,
-    // this.medicamentPresentationId,
+    this.administrationFormId,
+    this.medicamentPresentationId,
     // this.genericName,
-    // this.quantity,
-    // this.grammage,
+    this.quantity,
+    this.grammage,
     // this.startedAt,
     // this.endedAt,
     // this.deleted,
@@ -38,17 +38,17 @@ class MedicamentModel {
   String name;
   // String? personalDescription;
   // String? firstHour;
-  // String? days;
-  // String? hours;
+  String? days;
+  String? hours;
   // dynamic deletedAt;
   // DateTime? createdAt;
   // DateTime? updatedAt;
   String tradename;
-  // int? administrationFormId;
-  // int? medicamentPresentationId;
+  int? administrationFormId;
+  int? medicamentPresentationId;
   // String? genericName;
-  // int? quantity;
-  // int? grammage;
+  int? quantity;
+  int? grammage;
   // dynamic startedAt;
   // dynamic endedAt;
   // bool? deleted;
@@ -60,17 +60,17 @@ class MedicamentModel {
         name: json["name"],
         // personalDescription: json["personal_description"],
         // firstHour: json["first_hour"],
-        // days: json["days"],
-        // hours: json["hours"],
+        days: json["days"],
+        hours: json["hours"],
         // deletedAt: json["deleted_at"],
         // createdAt: DateTime.parse(json["created_at"]),
         // updatedAt: DateTime.parse(json["updated_at"]),
         tradename: json["tradename"],
-        // administrationFormId: json["administration_form_id"],
-        // medicamentPresentationId: json["medicament_presentation_id"],
+        administrationFormId: json["administration_form_id"],
+        medicamentPresentationId: json["medicament_presentation_id"],
         // genericName: json["generic_name"],
-        // quantity: json["quantity"],
-        // grammage: json["grammage"],
+        quantity: json["quantity"],
+        grammage: json["grammage"],
         // startedAt: json["started_at"],
         // endedAt: json["ended_at"],
         // deleted: json["deleted"],
@@ -82,17 +82,17 @@ class MedicamentModel {
         "name": name,
         // "personal_description": personalDescription,
         // "first_hour": firstHour,
-        // "days": days,
-        // "hours": hours,
+        "days": days,
+        "hours": hours,
         // "deleted_at": deletedAt,
         // "created_at": createdAt.toIso8601String(),
         // "updated_at": updatedAt.toIso8601String(),
         "tradename": tradename,
-        // "administration_form_id": administrationFormId,
-        // "medicament_presentation_id": medicamentPresentationId,
+        "administration_form_id": administrationFormId,
+        "medicament_presentation_id": medicamentPresentationId,
         // "generic_name": genericName,
-        // "quantity": quantity,
-        // "grammage": grammage,
+        "quantity": quantity,
+        "grammage": grammage,
         // "started_at": startedAt,
         // "ended_at": endedAt,
         // "deleted": deleted,

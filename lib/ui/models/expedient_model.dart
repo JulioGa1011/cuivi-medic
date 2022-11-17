@@ -133,8 +133,10 @@ class Allergy {
   factory Allergy.fromJson(Map<String, dynamic> json) => Allergy(
         id: json["id"],
         name: json["name"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt:
+            DateTime.parse(json["created_at"] ?? DateTime.now().toString()),
+        updatedAt:
+            DateTime.parse(json["updated_at"] ?? DateTime.now().toString()),
         deletedAt: json["deleted_at"],
         pivot: AllergyPivot.fromJson(json["pivot"]),
       );
@@ -192,8 +194,8 @@ class MedicalDiagnostic {
       MedicalDiagnostic(
         id: json["id"],
         name: json["name"],
-        createdAt: DateTime.parse(json["created_at"] ?? ''),
-        updatedAt: DateTime.parse(json["updated_at"] ?? ''),
+        createdAt: DateTime.parse(json["created_at"] ?? DateTime.now()),
+        updatedAt: DateTime.parse(json["updated_at"] ?? DateTime.now()),
         deletedAt: json["deleted_at"],
         diagnosedAt: json["diagnosed_at"],
         pivot: MedicalDiagnosticPivot.fromJson(json["pivot"]),
