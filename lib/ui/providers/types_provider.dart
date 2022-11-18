@@ -22,7 +22,7 @@ class TypesProvider extends ChangeNotifier {
   List<TypesModel> get administration => _administration;
   final List<PresentationModel> _presentation = [];
   List<PresentationModel> get presentation => _presentation;
-  static List<PresentationModel> kOptions = <PresentationModel>[];
+  List<PresentationModel> kOptions = <PresentationModel>[];
 
   Future<void> typesProvider(context) async {
     _types.clear();
@@ -79,18 +79,16 @@ class TypesProvider extends ChangeNotifier {
     res.data['data'].forEach((element) {
       _ailments.add(TypesModel.fromJson(element));
     });
-    logger.d(res.data['data']);
 
     notifyListeners();
   }
 
-  Future<void> typesPresentation(context, id) async {
+  Future<void> typesPresentation(context) async {
     _presentation.clear();
-    final res = await TypesServices().presentationTypes(context, id);
+    final res = await TypesServices().presentationTypes(context);
     res.data['data'].forEach((element) {
       _presentation.add(PresentationModel.fromJson(element));
     });
-    logger.d(res.data);
     presentation.forEach((element) {
       kOptions.add(element);
     });
@@ -104,6 +102,9 @@ class TypesProvider extends ChangeNotifier {
     res.data['data'].forEach((element) {
       _administration.add(TypesModel.fromJson(element));
     });
+    _administration.sort(
+      (a, b) => a.name.compareTo(b.name),
+    );
     // logger.d(res.data['data']);
 
     notifyListeners();

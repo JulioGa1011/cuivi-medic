@@ -19,7 +19,7 @@ class LoginServices {
       "grant_type": "password",
       "scope": "*",
       "client_id": dotenv.env['clientId'],
-      "client_secret": "e1mUTviUulN6rdkSR3sWdDrx04nACNVHMYn9ARyM",
+      "client_secret": "O0g3pnoPZQX0dEJvMoUtJZwJLOeGveMmW4Q140LQ",
       "username": email,
       "password": password,
     };

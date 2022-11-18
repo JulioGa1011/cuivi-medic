@@ -27,6 +27,7 @@ class PatientProvider extends ChangeNotifier {
     _patient.clear();
     final res = await PatientServices().patientInformation(context, patientId);
     _patient.add(PatientModel.fromJson(res.data));
+    logger.d(res);
     notifyListeners();
   }
 

@@ -24,6 +24,7 @@ class PatientsInformation extends StatefulWidget {
 }
 
 class _PatientsInformationState extends State<PatientsInformation> {
+  String? photo;
   var isInit = false;
   var _isLoading = false;
   String typeblood = '';
@@ -82,6 +83,12 @@ class _PatientsInformationState extends State<PatientsInformation> {
     final type = Provider.of<TypesProvider>(context);
     final patient = patientProvider.patient;
     final expedient = patientProvider.medicalHistory;
+    patient.forEach((element) {
+      logger.d(photo);
+      setState(() {
+        photo = element.photo;
+      });
+    });
     // ignore: prefer_is_empty
     if (expedient.length > 0) {
       if (expedient.first.bloodTypeId != null) {
@@ -167,10 +174,12 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 height:
                                     MediaQuery.of(context).size.height * 0.2,
-                                child: patient.first.photo != null
-                                    ? Image(
-                                        image:
-                                            NetworkImage(patient.first.photo!),
+                                child: photo != null
+                                    ? CircleAvatar(
+                                        child: ClipOval(
+                                          child: Image.network(photo!,
+                                              fit: BoxFit.cover),
+                                        ),
                                       )
                                     : const CircleAvatar(
                                         child: Icon(Icons.person, size: 100)),

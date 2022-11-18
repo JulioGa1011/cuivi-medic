@@ -87,10 +87,11 @@ class _InformationState extends State<Information> {
               children: [
                 const Text('Descripcion'),
                 InputWidget(
-                  onSubmitted: (p0) {},
-                  validate: (p0) {},
-                  hintText: aboutMe ?? 'Sin informacion',
-                ),
+                    onSubmitted: (p0) {},
+                    validate: (p0) {},
+                    hintText: aboutMe != null
+                        ? aboutMe!.replaceAll("<p>", "").replaceAll("</p>", "")
+                        : ""),
                 const SizedBox(height: 10),
                 const Text('Cedula'),
                 InputWidget(

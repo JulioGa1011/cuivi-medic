@@ -68,6 +68,11 @@ class _AddAppointmentState extends State<AddAppointment> {
       actions: [
         TextButton(
             onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancelar')),
+        TextButton(
+            onPressed: () {
               if (date!.month >= 9) {}
               if (start!.hour >= 9) {
                 _start.text = "0${start!.format(context).split(" ").first}";
@@ -97,11 +102,6 @@ class _AddAppointmentState extends State<AddAppointment> {
                   _description.text);
             },
             child: Text('Agregar')),
-        TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Cancelar'))
       ],
       content: SingleChildScrollView(
         child: Column(

@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cuivi_medic/main.dart';
+import 'package:cuivi_medic/ui/providers/doctor_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class Photo extends StatefulWidget {
   const Photo({Key? key}) : super(key: key);
@@ -13,6 +15,26 @@ class Photo extends StatefulWidget {
 }
 
 class _PhotoState extends State<Photo> {
+  String? photo;
+  var isInit = false;
+  var _isLoading = false;
+  @override
+  void didChangeDependencies() async {
+    if (!isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      await Provider.of<DoctorProvider>(context).aboutMe(context).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+      isInit = true;
+
+      super.didChangeDependencies();
+    }
+  }
+
   final ImagePicker _picker = ImagePicker();
   late String base64Image;
 
@@ -45,7 +67,14 @@ class _PhotoState extends State<Photo> {
 
   @override
   Widget build(BuildContext context) {
+    final profile = Provider.of<DoctorProvider>(context);
     var size = MediaQuery.of(context).size;
+    profile.add.forEach((element) {
+      logger.d(element.profilePhotoUrl);
+      setState(() {
+        photo = element.profilePhotoUrl;
+      });
+    });
     return GestureDetector(
         onTap: () {
           showModalBottomSheet(
@@ -110,25 +139,34 @@ class _PhotoState extends State<Photo> {
             },
           );
         },
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.person,
-                  size: size.height * 0.25,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        )
+        child: photo != null
+            ? CircleAvatar(
+                radius: 100,
+                child: ClipOval(
+                    child: Image.network(
+                  photo!,
+                  fit: BoxFit.cover,
+                )),
+              )
+            : Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        size: size.height * 0.25,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              )
         // profileProvider.user.profilePhotoPath ==
         //         dotenv.env['baseUrlStorage']
         //     ?
