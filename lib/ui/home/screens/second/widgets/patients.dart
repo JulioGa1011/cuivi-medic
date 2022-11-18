@@ -100,8 +100,10 @@ class _PatientsState extends State<Patients> {
                                     children: [
                                       Row(
                                         children: [
-                                          const CircleAvatar(
-                                            child: Icon(Icons.person),
+                                          CircleAvatar(
+                                            child: patient.photo != null
+                                                ? Image.network(patient.photo!)
+                                                : Icon(Icons.person),
                                             radius: 50,
                                           ),
                                           SizedBox(width: 10),

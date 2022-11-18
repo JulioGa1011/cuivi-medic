@@ -1,20 +1,18 @@
-import 'dart:math';
-
 import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/home/screens/second/widgets/show_alergy.dart';
 import 'package:cuivi_medic/ui/home/screens/third/screens/medicaments.dart';
 import 'package:cuivi_medic/ui/models/expedient_model.dart';
 import 'package:cuivi_medic/ui/models/medicament_model.dart';
+import 'package:cuivi_medic/ui/models/medicine.dart';
 import 'package:cuivi_medic/ui/models/patient_model.dart';
 import 'package:cuivi_medic/ui/models/presentation_model.dart';
 import 'package:cuivi_medic/ui/models/types_model.dart';
 import 'package:cuivi_medic/ui/providers/medicament_provider.dart';
-import 'package:cuivi_medic/ui/providers/patient_provider.dart';
 import 'package:cuivi_medic/ui/providers/types_provider.dart';
+import 'package:cuivi_medic/ui/services/medicines_services.dart';
 import 'package:cuivi_medic/widgets/app_bar_widget.dart';
 import 'package:cuivi_medic/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -31,6 +29,7 @@ class AddPrescription extends StatefulWidget {
 }
 
 class _AddPrescriptionState extends State<AddPrescription> {
+  List<Substance>? substanceMedicament = [];
   TypesModel? selectedItem;
   PresentationModel? presentationItem;
 
@@ -38,7 +37,16 @@ class _AddPrescriptionState extends State<AddPrescription> {
   bool generate = false;
   TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
-
+  TextEditingController _age = TextEditingController();
+  TextEditingController _weight = TextEditingController();
+  TextEditingController _allergy = TextEditingController();
+  TextEditingController _birth = TextEditingController();
+  TextEditingController _ta = TextEditingController();
+  TextEditingController _fc = TextEditingController();
+  TextEditingController _fr = TextEditingController();
+  TextEditingController _glucose = TextEditingController();
+  TextEditingController _temperature = TextEditingController();
+  TextEditingController _diagnostic = TextEditingController();
   TextEditingController _medicamentName = TextEditingController();
   final TextEditingController _tradename = TextEditingController();
   final TextEditingController _days = TextEditingController();
@@ -72,6 +80,13 @@ class _AddPrescriptionState extends State<AddPrescription> {
 
       Provider.of<MedicamentProvider>(context)
           .substanceProvider(context)
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+      Provider.of<TypesProvider>(context)
+          .typesPresentation(context)
           .then((value) {
         setState(() {
           _isLoading = false;
@@ -113,8 +128,15 @@ class _AddPrescriptionState extends State<AddPrescription> {
   static List<PresentationModel> _kOptions = <PresentationModel>[];
   static String _displayStringForOption(PresentationModel option) =>
       option.name;
-  static List<TypesModel> _substance = <TypesModel>[];
-  static String _optionSubstance(TypesModel option) => option.name;
+  static List<MedicamentsPrescription> _substance = <MedicamentsPrescription>[];
+  static String _optionSubstance(MedicamentsPrescription option) =>
+      option.name!;
+  static List<Substance> _substanceMedicament = <Substance>[];
+  static String _optionMedicament(Substance option) => option.name!;
+  static List<MedicinePresentation> _medicamentPresentation =
+      <MedicinePresentation>[];
+  static String _presentationMedicament(MedicinePresentation option) =>
+      option.name!;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +157,6 @@ class _AddPrescriptionState extends State<AddPrescription> {
     );
     administration.presentation.forEach(((element) {
       _kOptions.add(element);
-      logger.d(element);
     }));
     // final patients = Provider.of<PatientModel>(con7y992text);
     // logger.d(patients);
@@ -401,7 +422,7 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                                       size.width *
                                                                           .03),
                                                           child: Autocomplete<
-                                                              TypesModel>(
+                                                              MedicamentsPrescription>(
                                                             displayStringForOption:
                                                                 _optionSubstance,
                                                             optionsBuilder:
@@ -411,10 +432,10 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                                       .text ==
                                                                   ' ') {
                                                                 return const Iterable<
-                                                                    TypesModel>.empty();
+                                                                    MedicamentsPrescription>.empty();
                                                               }
-                                                              return _substance
-                                                                  .where((TypesModel
+                                                              return _substance.where(
+                                                                  (MedicamentsPrescription
                                                                       option) {
                                                                 return option
                                                                     .toString()
@@ -422,37 +443,49 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                                         textEditingValue
                                                                             .text
                                                                             .toLowerCase());
-                                                                logger
-                                                                    .d(option);
                                                               });
                                                             },
-                                                            onSelected: (TypesModel
-                                                                selection) async {
+                                                            onSelected:
+                                                                (MedicamentsPrescription
+                                                                    selection) async {
                                                               setState(() {
-                                                                presentation =
-                                                                    true;
-                                                                TypesProvider()
-                                                                    .typesPresentation(
-                                                                        context,
-                                                                        selection
-                                                                            .id);
+                                                                selection
+                                                                    .substances!
+                                                                    .forEach(
+                                                                        (element) {
+                                                                  _substanceMedicament
+                                                                      .add(
+                                                                          element);
+                                                                });
+                                                                selection
+                                                                    .medicinePresentations!
+                                                                    .forEach(
+                                                                        (element) {
+                                                                  _medicamentPresentation
+                                                                      .add(
+                                                                          element);
+                                                                });
 
                                                                 logger.d(
                                                                     selection
                                                                         .id);
+                                                                logger.d(selection
+                                                                    .substances!
+                                                                    .first
+                                                                    .name);
                                                               });
                                                             },
                                                           ),
                                                         )),
-                                                    const SizedBox(height: 20),
+                                                    // const SizedBox(height: 20),
 
-                                                    InputWidget(
-                                                      hintText:
-                                                          'Nombre Comercial',
-                                                      onSubmitted: (value) {},
-                                                      validate: (num) {},
-                                                      controller: _tradename,
-                                                    ),
+                                                    // InputWidget(
+                                                    //   hintText:
+                                                    //       'Nombre Comercial',
+                                                    //   onSubmitted: (value) {},
+                                                    //   validate: (num) {},
+                                                    //   controller: _tradename,
+                                                    // ),
                                                     // const SizedBox(height: 20),
                                                     // Container(
                                                     //   width: size.width,
@@ -552,9 +585,9 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                                       size.width *
                                                                           .03),
                                                           child: Autocomplete<
-                                                              PresentationModel>(
+                                                              MedicinePresentation>(
                                                             displayStringForOption:
-                                                                _displayStringForOption,
+                                                                _presentationMedicament,
                                                             optionsBuilder:
                                                                 (TextEditingValue
                                                                     textEditingValue) {
@@ -562,10 +595,10 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                                       .text ==
                                                                   ' ') {
                                                                 return const Iterable<
-                                                                    PresentationModel>.empty();
+                                                                    MedicinePresentation>.empty();
                                                               }
-                                                              return _kOptions.where(
-                                                                  (PresentationModel
+                                                              return _medicamentPresentation.where(
+                                                                  (MedicinePresentation
                                                                       option) {
                                                                 return option
                                                                     .toString()
@@ -576,31 +609,31 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                               });
                                                             },
                                                             onSelected:
-                                                                (PresentationModel
+                                                                (MedicinePresentation
                                                                     selection) {
                                                               logger.d(
                                                                   selection.id);
                                                               debugPrint(
-                                                                  'You just selected ${_displayStringForOption(selection)}');
+                                                                  'You just selected ${_presentationMedicament(selection)}');
                                                             },
                                                           ),
                                                         )),
 
                                                     const SizedBox(height: 20),
-                                                    InputWidget(
-                                                      hintText: 'Gramaje',
-                                                      onSubmitted: (value) {},
-                                                      validate: (num) {},
-                                                      controller: _gramage,
-                                                    ),
-                                                    const SizedBox(height: 20),
-                                                    InputWidget(
-                                                      hintText: 'Cantidad ',
-                                                      onSubmitted: (value) {},
-                                                      validate: (num) {},
-                                                      controller: _cantidad,
-                                                    ),
-                                                    const SizedBox(height: 20),
+                                                    // InputWidget(
+                                                    //   hintText: 'Gramaje',
+                                                    //   onSubmitted: (value) {},
+                                                    //   validate: (num) {},
+                                                    //   controller: _gramage,
+                                                    // ),
+                                                    // const SizedBox(height: 20),
+                                                    // InputWidget(
+                                                    //   hintText: 'Cantidad ',
+                                                    //   onSubmitted: (value) {},
+                                                    //   validate: (num) {},
+                                                    //   controller: _cantidad,
+                                                    // ),
+                                                    // const SizedBox(height: 20),
                                                     Container(
                                                       width: size.width,
                                                       decoration: BoxDecoration(
@@ -631,7 +664,7 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                             isExpanded: true,
                                                             value: selectedItem,
                                                             hint: Text(
-                                                              'Vía de administración',
+                                                              'Forma farmaceutica',
                                                               style: TextStyle(
                                                                 color: Colors
                                                                     .black54,
@@ -690,27 +723,28 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                                         //_tradename.text);
                                                         //_medicamentName.clear();
                                                         //_tradename.clear();
-                                                        medicaments.add(
-                                                            MedicamentModel(
-                                                          name: _medicamentName
-                                                              .text,
-                                                          tradename:
-                                                              _tradename.text,
-                                                          medicamentPresentationId:
-                                                              idPresentation,
-                                                          grammage: int.parse(
-                                                              _gramage.text),
-                                                          quantity: int.parse(
-                                                              _cantidad.text),
-                                                          administrationFormId:
-                                                              idAdministration,
-                                                          days: _days.text,
-                                                          hours: _hours.text,
-                                                        ));
-                                                        setState(() {});
-                                                        logger.d(
-                                                            medicaments.length);
-                                                        Navigator.pop(context);
+                                                        // medicaments.add(
+                                                        //     MedicamentModel(
+                                                        //   name: _medicamentName
+                                                        //       .text,
+                                                        //   tradename:
+                                                        //       _tradename.text,
+                                                        //   medicamentPresentationId:
+                                                        //       idPresentation,
+                                                        //   grammage: int.parse(
+                                                        //       _gramage.text),
+                                                        //   quantity: int.parse(
+                                                        //       _cantidad.text),
+                                                        //   administrationFormId:
+                                                        //       idAdministration,
+                                                        //   days: _days.text,
+                                                        //   hours: _hours.text,
+                                                        // ));
+                                                        // setState(() {});
+                                                        // logger.d(
+                                                        //     medicaments.length);
+                                                        // Navigator.pop(context);
+                                                        // MedicinesServices().createPrescriptions(idPatient: idPatient, name: _name.text, email: _email.text, weight: double.parse(_weight.text), allergies: _allergy.text, age: _age.text, ta: _ta.text, fc: _fc.text, fr: _fr.text, glucose: _glucose.text, temperature: _temperature.text, diagnosis: _diagnostic.text, observations: "", idMedicament: , presentation: presentation, pharmaceuticId: pharmaceuticId, quantity: quantity, frequency: frequency, duration: duration)
                                                       },
                                                       child: Text('Guardar'),
                                                     )

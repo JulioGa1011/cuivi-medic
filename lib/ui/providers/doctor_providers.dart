@@ -1,3 +1,4 @@
+import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/models/personal_information.dart';
 import 'package:cuivi_medic/ui/models/professional_information_model.dart';
 import 'package:cuivi_medic/ui/services/doctor_services.dart';

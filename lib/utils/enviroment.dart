@@ -5,7 +5,7 @@ class Environment {
   // String baseUrlApi = 'https://cuivi.app/api/';
   // String baseUrlStorage = 'https://cuivi.app/storage';
   String clientId = "3";
-  String clientSecret = "e1mUTviUulN6rdkSR3sWdDrx04nACNVHMYn9ARyM";
+  String clientSecret = "O0g3pnoPZQX0dEJvMoUtJZwJLOeGveMmW4Q140LQ";
   String baseUrl = "https://cuivi.cceo.io/";
   String baseUrlApi = 'https://cuivi.cceo.io/api/';
   String baseUrlStorage = 'https://cuivi.app/storage';

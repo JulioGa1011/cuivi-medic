@@ -13,6 +13,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../../../../main.dart';
+import '../../../providers/doctor_providers.dart';
+
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
 
@@ -21,11 +24,41 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  String? photo;
+  String? name;
+  var isInit = false;
+  var _isLoading = false;
+  @override
+  void didChangeDependencies() async {
+    if (!isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      await Provider.of<DoctorProvider>(context).aboutMe(context).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+      isInit = true;
+
+      super.didChangeDependencies();
+    }
+  }
+
   final CarouselController _controller = CarouselController();
   TextEditingController search = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final profile = Provider.of<DoctorProvider>(context);
+
     Size size = MediaQuery.of(context).size;
+    profile.add.forEach((element) {
+      logger.d(element.profilePhotoUrl);
+      setState(() {
+        photo = element.profilePhotoUrl;
+        name = element.name;
+      });
+    });
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -101,16 +134,18 @@ class _FirstScreenState extends State<FirstScreen> {
                                             child: const ProfilePage()),
                                         (Route<dynamic> route) => true);
                                   },
-                                  child: const CircleAvatar(
-                                    child: Icon(Icons.person),
+                                  child: CircleAvatar(
+                                    child: photo != null
+                                        ? Image.network(photo!)
+                                        : Icon(Icons.person),
                                     radius: 50,
                                   ),
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Text(
-                                      'Hola, Mario',
+                                      'Hola, $name',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     Text(

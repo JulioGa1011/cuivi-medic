@@ -12,7 +12,7 @@ class PatientServices {
     dio.options.headers['Authorization'] = 'Bearer $accessToken';
     try {
       Response response = await dio.get('medic/patients', queryParameters: {
-        'columns': '["name","phone"]',
+        'columns': '["name","phone", "profile_photo_url"]',
       });
       return response;
     } on DioError {
@@ -29,7 +29,7 @@ class PatientServices {
       Response response =
           await dio.get('medic/patients/$patientId', queryParameters: {
         'columns':
-            '["id","name","email","phone","photo","formatted_created_at","formatted_updated_at"]',
+            '["id","name","email","phone","photo","profile_photo_url","formatted_created_at","formatted_updated_at"]',
       });
       return response;
     } on DioError {
