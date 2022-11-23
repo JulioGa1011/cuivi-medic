@@ -154,7 +154,7 @@ class _PatientsInformationState extends State<PatientsInformation> {
                     });
               },
               icon: Icon(
-                Icons.edit,
+                Icons.more_vert,
                 color: Colors.black,
               ))
         ],
@@ -177,8 +177,13 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                 child: photo != null
                                     ? CircleAvatar(
                                         child: ClipOval(
-                                          child: Image.network(photo!,
-                                              fit: BoxFit.cover),
+                                          child: photo!.contains("avatar")
+                                              ? Icon(
+                                                  Icons.person,
+                                                  size: 60,
+                                                )
+                                              : Image.network(photo!,
+                                                  fit: BoxFit.cover),
                                         ),
                                       )
                                     : const CircleAvatar(

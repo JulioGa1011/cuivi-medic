@@ -1,3 +1,4 @@
+import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/home/screens/second/screens/alert_screen_format.dart';
 import 'package:cuivi_medic/ui/home/screens/second/screens/patient_information.dart';
 import 'package:cuivi_medic/ui/providers/patient_provider.dart';
@@ -80,6 +81,7 @@ class _PatientsState extends State<Patients> {
                     itemCount: patientProvider.add.length,
                     itemBuilder: ((context, index) {
                       final patient = patientProvider.add[index];
+                      logger.d(patient.photo);
                       return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -101,9 +103,10 @@ class _PatientsState extends State<Patients> {
                                       Row(
                                         children: [
                                           CircleAvatar(
-                                            child: patient.photo != null
-                                                ? Image.network(patient.photo!)
-                                                : Icon(Icons.person),
+                                            child: patient.photo!
+                                                    .contains("avatars")
+                                                ? Icon(Icons.person)
+                                                : Image.network(patient.photo!),
                                             radius: 50,
                                           ),
                                           SizedBox(width: 10),

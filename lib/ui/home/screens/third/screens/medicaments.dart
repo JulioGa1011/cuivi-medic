@@ -1,11 +1,12 @@
 import 'package:cuivi_medic/main.dart';
 import 'package:cuivi_medic/ui/models/medicament_model.dart';
+import 'package:cuivi_medic/ui/models/medicament_prescription_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Medicaments extends StatefulWidget {
-  List<MedicamentModel> medicaments;
+  List<Medicines> medicaments;
   Medicaments({super.key, required this.medicaments});
 
   @override
@@ -37,20 +38,23 @@ class _MedicamentsState extends State<Medicaments> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       height: 60,
                       width: 60,
-                      child: const Icon(
+                      child: widget.medicaments[index].namePresentation.contains('ml')? const Icon(
+                        FontAwesomeIcons.capsules,
+                        color: Colors.indigo,
+                      ):const Icon(
                         FontAwesomeIcons.capsules,
                         color: Colors.indigo,
                       ),
                     ),
                     Text(
-                      widget.medicaments[index].tradename,
+                      widget.medicaments[index].name,
                       style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     Text(
-                      "Cada ${widget.medicaments[index].hours} horas",
+                      "Cada ${widget.medicaments[index].frequency} horas",
                       style: TextStyle(fontSize: 10),
                     ),
                     Container(

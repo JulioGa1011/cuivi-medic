@@ -32,78 +32,156 @@ class _PatientModifyState extends State<PatientModify> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
-      height: MediaQuery.of(context).size.height * 0.06,
-      color: Color.fromARGB(255, 162, 176, 252),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      height: MediaQuery.of(context).size.height * 0.3,
+      color: Color.fromARGB(255, 253, 254, 255),
+      child: Column(
         children: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AlertScreenFormat(),
-                  ),
-                );
-              },
-              icon: const Icon(FontAwesomeIcons.notesMedical)),
-          IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Scaffold(
-                        appBar: const AppBarWidget(
-                          isShowBack: true,
-                          title: Text(
-                            'Medicamentos del paciente',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        body: ShowMedicaments(
-                          expedient: widget.expedient,
-                          complete: true,
-                        ),
-                      );
-                    });
-              },
-              icon: const Icon(FontAwesomeIcons.pills)),
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Params(
-                      paramId: widget.paramId,
+          options("Agregar nota médica", () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AlertScreenFormat(),
+              ),
+            );
+          }, FontAwesomeIcons.notesMedical),
+          options('Medicamentos del paciente', () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: const AppBarWidget(
+                      isShowBack: true,
+                      title: Text(
+                        'Medicamentos del paciente',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
-                  ),
-                );
-              },
-              icon: const Icon(FontAwesomeIcons.heartPulse)),
-          IconButton(
-              onPressed: () {}, icon: const Icon(FontAwesomeIcons.fileMedical)),
-          IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Scaffold(
-                          appBar: const AppBarWidget(
-                            isShowBack: true,
-                            title: Text(
-                              'Crear receta',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          body: AddPrescription(
-                            patient: widget.patient,
-                            expedient: widget.expedient,
-                          ));
-                    });
-              },
-              icon: const Icon(FontAwesomeIcons.solidClipboard)),
+                    body: ShowMedicaments(
+                      expedient: widget.expedient,
+                      complete: true,
+                    ),
+                  );
+                });
+          }, FontAwesomeIcons.pills),
+
+          options('Parametros clínicos', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Params(
+                  paramId: widget.paramId,
+                ),
+              ),
+            );
+          }, FontAwesomeIcons.heartPulse),
+          options('Archivos', () {}, FontAwesomeIcons.fileMedical),
+          options('Generar receta', () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Scaffold(
+                      appBar: const AppBarWidget(
+                        isShowBack: true,
+                        title: Text(
+                          'Crear receta',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      body: AddPrescription(
+                        patient: widget.patient,
+                        expedient: widget.expedient,
+                      ));
+                });
+          }, FontAwesomeIcons.solidClipboard),
+
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     IconButton(
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => AlertScreenFormat(),
+          //             ),
+          //           );
+          //         },
+          //         icon: const Icon(FontAwesomeIcons.notesMedical)),
+          //     IconButton(
+          //         onPressed: () {
+          //           showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return Scaffold(
+          //                   appBar: const AppBarWidget(
+          //                     isShowBack: true,
+          //                     title: Text(
+          //                       'Medicamentos del paciente',
+          //                       style: TextStyle(color: Colors.black),
+          //                     ),
+          //                   ),
+          //                   body: ShowMedicaments(
+          //                     expedient: widget.expedient,
+          //                     complete: true,
+          //                   ),
+          //                 );
+          //               });
+          //         },
+          //         icon: const Icon(FontAwesomeIcons.pills)),
+          //     IconButton(
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => Params(
+          //                 paramId: widget.paramId,
+          //               ),
+          //             ),
+          //           );
+          //         },
+          //         icon: const Icon(FontAwesomeIcons.heartPulse)),
+          //     IconButton(
+          //         onPressed: () {},
+          //         icon: const Icon(FontAwesomeIcons.fileMedical)),
+          //     IconButton(
+          //         onPressed: () {
+          //           showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return Scaffold(
+          //                     appBar: const AppBarWidget(
+          //                       isShowBack: true,
+          //                       title: Text(
+          //                         'Crear receta',
+          //                         style: TextStyle(color: Colors.black),
+          //                       ),
+          //                     ),
+          //                     body: AddPrescription(
+          //                       patient: widget.patient,
+          //                       expedient: widget.expedient,
+          //                     ));
+          //               });
+          //         },
+          //         icon: const Icon(FontAwesomeIcons.solidClipboard)),
+          //   ],
+          // ),
         ],
       ),
+    );
+  }
+
+  options(text, onPressed, icon) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Icon(icon),
+        TextButton(
+            onPressed: onPressed,
+            child: Text(
+              text,
+              style: TextStyle(color: Colors.indigo),
+            ))
+      ],
     );
   }
 }

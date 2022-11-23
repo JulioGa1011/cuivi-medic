@@ -35,10 +35,8 @@ class MedicinesServices {
       required String glucose,
       required String temperature,
       required String diagnosis,
-      required String observations,
       required int idMedicament,
       required int presentation,
-      required int pharmaceuticId,
       required int quantity,
       required String frequency,
       required String duration,
@@ -58,12 +56,10 @@ class MedicinesServices {
       "glucose": glucose,
       "temperature": temperature,
       "diagnosis": diagnosis,
-      "observations": observations,
       "medicines": [
         {
           "id": idMedicament,
           "presentation": presentation,
-          "pharmaceutic_form_id": pharmaceuticId,
           "quantity": quantity,
           "frequency": frequency,
           "duration": duration
@@ -77,6 +73,7 @@ class MedicinesServices {
         options: Options(headers: {"requirestoken": false}),
         data: data,
       );
+      logger.d(response);
       return response;
     } on DioError {
       rethrow;
