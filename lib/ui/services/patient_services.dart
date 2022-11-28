@@ -29,7 +29,7 @@ class PatientServices {
       Response response =
           await dio.get('medic/patients/$patientId', queryParameters: {
         'columns':
-            '["id","name","email","phone","photo","profile_photo_url","formatted_created_at","formatted_updated_at"]',
+            '["id","name","email","phone","photo","profile_photo_url","formatted_created_at","formatted_updated_at", "patient_id"]',
       });
       return response;
     } on DioError {

@@ -38,17 +38,23 @@ class _MedicamentsState extends State<Medicaments> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       height: 60,
                       width: 60,
-                      child: widget.medicaments[index].namePresentation.contains('ml')? const Icon(
-                        FontAwesomeIcons.capsules,
-                        color: Colors.indigo,
-                      ):const Icon(
-                        FontAwesomeIcons.capsules,
-                        color: Colors.indigo,
-                      ),
+                      child: widget.medicaments[index].namePresentation
+                              .contains('ml')
+                          ? const Icon(
+                              FontAwesomeIcons.capsules,
+                              color: Colors.indigo,
+                            )
+                          : const Icon(
+                              FontAwesomeIcons.capsules,
+                              color: Colors.indigo,
+                            ),
                     ),
-                    Text(
-                      widget.medicaments[index].name,
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    Container(
+                      width: size.width * 0.4,
+                      child: Text(
+                        widget.medicaments[index].name,
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
                     ),
                     SizedBox(
                       height: 5,

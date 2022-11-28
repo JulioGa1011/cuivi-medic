@@ -16,7 +16,6 @@ class DoctorServices {
         'medic/personal-data',
         // queryParameters: {'columns': '["name","phone"]',}
       );
-      logger.d(response);
       return response;
     } on DioError {
       rethrow;

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 import '../../utils/dio_configuration.dart';
+import '../models/medicament_prescription_model.dart';
 
 class MedicinesServices {
   Future<Response> substanceService(context) async {
@@ -35,11 +36,7 @@ class MedicinesServices {
       required String glucose,
       required String temperature,
       required String diagnosis,
-      required int idMedicament,
-      required int presentation,
-      required int quantity,
-      required String frequency,
-      required String duration,
+      required List<Medicines> medicines,
       context}) async {
     var dio = DioConfiguration(context).createDio();
 
@@ -56,15 +53,7 @@ class MedicinesServices {
       "glucose": glucose,
       "temperature": temperature,
       "diagnosis": diagnosis,
-      "medicines": [
-        {
-          "id": idMedicament,
-          "presentation": presentation,
-          "quantity": quantity,
-          "frequency": frequency,
-          "duration": duration
-        }
-      ]
+      "medicines": medicines
     };
     Response response;
     try {

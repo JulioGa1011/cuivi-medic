@@ -87,9 +87,11 @@ class _PatientModifyState extends State<PatientModify> {
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
-                      body: AddPrescription(
-                        patient: widget.patient,
-                        expedient: widget.expedient,
+                      body: SingleChildScrollView(
+                        child: AddPrescription(
+                          patient: widget.patient,
+                          expedient: widget.expedient,
+                        ),
                       ));
                 });
           }, FontAwesomeIcons.solidClipboard),

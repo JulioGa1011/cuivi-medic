@@ -84,7 +84,6 @@ class _PatientsInformationState extends State<PatientsInformation> {
     final patient = patientProvider.patient;
     final expedient = patientProvider.medicalHistory;
     patient.forEach((element) {
-      logger.d(photo);
       setState(() {
         photo = element.photo;
       });
