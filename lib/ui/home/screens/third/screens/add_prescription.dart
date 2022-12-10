@@ -152,7 +152,8 @@ class _AddPrescriptionState extends State<AddPrescription> {
       _email.text = widget.patient!.email!;
     }
     ;
-    _patientId.text = widget.patient!.patientId.toString();
+    if (widget.patient != null)
+      _patientId.text = widget.patient!.patientId.toString();
     logger.d(_patientId.text);
 
     substance.values.forEach(

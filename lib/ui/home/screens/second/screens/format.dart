@@ -94,23 +94,6 @@ class _FormatState extends State<Format> {
             }
             return null;
           },
-          hintText: 'Parametros clinicos',
-          controller: _identityController,
-          textInputAction: TextInputAction.next,
-          textInputType: TextInputType.emailAddress,
-        ),
-        const SizedBox(height: 10),
-        InputWidget(
-          onSaved: (p0) {},
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSubmitted: (text) {},
-          textCapitalization: TextCapitalization.none,
-          validate: (text) {
-            if (text!.trim().isEmpty) {
-              return 'Este campo es requerido';
-            }
-            return null;
-          },
           hintText: 'Resumen del interrogatorio',
           controller: _identityController,
           textInputAction: TextInputAction.next,

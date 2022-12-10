@@ -67,33 +67,33 @@ class _AlertScreenFormatState extends State<AlertScreenFormat> {
                   : dropdownValue == 'Nota de evolucion'
                       ? const Format()
                       : const FreeNote(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    child: const Text('Cancelar'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: const Text('Aceptar'),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const Format();
-                          });
-                      // Navigator.of(context).pop(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const Format(),
-                      //   ),
-                      // );
-                      logger.d('aceptar');
-                    },
-                  ),
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     TextButton(
+              //       child: const Text('Cancelar'),
+              //       onPressed: () {
+              //         Navigator.of(context).pop();
+              //       },
+              //     ),
+              //     TextButton(
+              //       child: const Text('Aceptar'),
+              //       onPressed: () {
+              //         showDialog(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return const Format();
+              //             });
+              //         // Navigator.of(context).pop(
+              //         //   MaterialPageRoute(
+              //         //     builder: (context) => const Format(),
+              //         //   ),
+              //         // );
+              //         logger.d('aceptar');
+              //       },
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../main.dart';
 import '../../../../../widgets/input_widget.dart';
+import '../screens/format.dart';
 
 class ClinicHistory extends StatefulWidget {
   ClinicHistory({Key? key}) : super(key: key);
@@ -11,9 +13,23 @@ class ClinicHistory extends StatefulWidget {
 
 class _ClinicHistoryState extends State<ClinicHistory> {
   final TextEditingController _identityController = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _age = TextEditingController();
+  final TextEditingController _gender = TextEditingController();
+  final TextEditingController _recordH = TextEditingController();
+  final TextEditingController _recordP = TextEditingController();
+  final TextEditingController _recordPp = TextEditingController();
+  final TextEditingController _currentCondition = TextEditingController();
+  final TextEditingController _interrogation = TextEditingController();
+  final TextEditingController _vitalSigns = TextEditingController();
+  final TextEditingController _physicalExploration = TextEditingController();
+  final TextEditingController _results = TextEditingController();
+  final TextEditingController _therapeutic = TextEditingController();
+  final TextEditingController _diagnostic = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    submit() {}
     return Column(
       children: [
         InputWidget(
@@ -45,7 +61,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Nombre ',
-          controller: _identityController,
+          controller: _name,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -62,7 +78,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Edad',
-          controller: _identityController,
+          controller: _age,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -79,7 +95,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Sexo',
-          controller: _identityController,
+          controller: _gender,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -96,7 +112,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Antecedentes heredofamiliares',
-          controller: _identityController,
+          controller: _recordH,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -113,7 +129,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Antecedentes personales no patológicos',
-          controller: _identityController,
+          controller: _recordP,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -130,7 +146,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Antecedentes personales patológicos',
-          controller: _identityController,
+          controller: _recordPp,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -147,7 +163,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Padecimiento actual',
-          controller: _identityController,
+          controller: _currentCondition,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -164,7 +180,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Interrogatorio por aparatos y sistemas',
-          controller: _identityController,
+          controller: _interrogation,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -181,7 +197,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Signos vitales',
-          controller: _identityController,
+          controller: _vitalSigns,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -198,7 +214,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Exploración física',
-          controller: _identityController,
+          controller: _physicalExploration,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -215,7 +231,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Resultados previos y actuales de estudios ',
-          controller: _identityController,
+          controller: _results,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -232,7 +248,7 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Terapéutica empleada',
-          controller: _identityController,
+          controller: _therapeutic,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
@@ -249,11 +265,38 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             return null;
           },
           hintText: 'Diagnósticos',
-          controller: _identityController,
+          controller: _diagnostic,
           textInputAction: TextInputAction.next,
           textInputType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                // showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return const Format();
+                //     });
+                // // Navigator.of(context).pop(
+                // //   MaterialPageRoute(
+                // //     builder: (context) => const Format(),
+                // //   ),
+                // // );
+                // logger.d('aceptar');
+              },
+            ),
+          ],
+        )
       ],
     );
   }
