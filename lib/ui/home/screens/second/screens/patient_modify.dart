@@ -40,7 +40,8 @@ class _PatientModifyState extends State<PatientModify> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AlertScreenFormat(),
+                builder: (context) =>
+                    AlertScreenFormat(patientId: widget.patient.patientId!),
               ),
             );
           }, FontAwesomeIcons.notesMedical),

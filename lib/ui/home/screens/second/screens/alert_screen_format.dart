@@ -6,7 +6,9 @@ import 'package:cuivi_medic/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class AlertScreenFormat extends StatefulWidget {
-  const AlertScreenFormat({Key? key}) : super(key: key);
+  int patientId;
+
+  AlertScreenFormat({Key? key, required this.patientId}) : super(key: key);
 
   @override
   State<AlertScreenFormat> createState() => _AlertScreenFormatState();
@@ -63,7 +65,7 @@ class _AlertScreenFormatState extends State<AlertScreenFormat> {
                 ),
               ),
               dropdownValue == 'Historia clínica'
-                  ? ClinicHistory()
+                  ? ClinicHistory(patientId: widget.patientId)
                   : dropdownValue == 'Nota de evolucion'
                       ? const Format()
                       : const FreeNote(),

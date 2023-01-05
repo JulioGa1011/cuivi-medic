@@ -1,16 +1,13 @@
-// To parse this JSON data, do
-//
-//     final medicalNotes = medicalNotesFromJson(jsonString);
-
 import 'dart:convert';
 
-MedicalNotes medicalNotesFromJson(String str) =>
-    MedicalNotes.fromJson(json.decode(str));
+clinicHistoryModel medicalNotesFromJson(String str) =>
+    clinicHistoryModel.fromJson(json.decode(str));
 
-String medicalNotesToJson(MedicalNotes data) => json.encode(data.toJson());
+String medicalNotesToJson(clinicHistoryModel data) =>
+    json.encode(data.toJson());
 
-class MedicalNotes {
-  MedicalNotes({
+class clinicHistoryModel {
+  clinicHistoryModel({
     required this.patientId,
     required this.data,
     required this.type,
@@ -20,7 +17,8 @@ class MedicalNotes {
   Data data;
   String type;
 
-  factory MedicalNotes.fromJson(Map<String, dynamic> json) => MedicalNotes(
+  factory clinicHistoryModel.fromJson(Map<String, dynamic> json) =>
+      clinicHistoryModel(
         patientId: json["patient_id"],
         data: Data.fromJson(json["data"]),
         type: json["type"],
@@ -36,75 +34,73 @@ class MedicalNotes {
 class Data {
   Data({
     this.id,
+    this.identificationFile,
     this.name,
     this.age,
     this.gender,
+    this.recordH,
+    this.recordP,
+    this.recordPp,
+    this.currentCondition,
     this.interrogation,
-    this.vitalSigns,
     this.physicalExploration,
-    this.results,
+    this.result,
+    this.therapeutic,
     this.diagnostic,
-    this.treatment,
-    this.pronostic,
-    this.nameDoctor,
-    this.identificationCard,
-    this.signature,
+    this.vitalSigns,
   });
 
   int? id;
+  String? identificationFile;
   String? name;
   int? age;
   String? gender;
-  // String? recordH;
-  // String? recordP;
-  // String? recordPp;
-  // String? currentCondition;
+  String? recordH;
+  String? recordP;
+  String? recordPp;
+  String? currentCondition;
   String? interrogation;
-  List<VitalSign>? vitalSigns;
   String? physicalExploration;
-  String? results;
-  // String? therapeutic;
+  String? result;
+  String? therapeutic;
   String? diagnostic;
-  String? treatment;
-  String? pronostic;
-  String? nameDoctor;
-  String? identificationCard;
-  String? signature;
-  // String? free;
+  List<VitalSign>? vitalSigns;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
+        identificationFile: json["identification_file"],
         name: json["name"],
         age: json["age"],
         gender: json["gender"],
+        recordH: json["record_h"],
+        recordP: json["record_p"],
+        recordPp: json["record_pp"],
+        currentCondition: json["current_condition"],
         interrogation: json["interrogation"],
+        physicalExploration: json["physical_exploration"],
+        result: json["result"],
+        therapeutic: json["therapeutic"],
+        diagnostic: json["diagnostic"],
         vitalSigns: List<VitalSign>.from(
             json["vital_signs"].map((x) => VitalSign.fromJson(x))),
-        physicalExploration: json["physical_exploration"],
-        results: json["results"],
-        diagnostic: json["diagnostic"],
-        treatment: json["treatment"],
-        pronostic: json["pronostic"],
-        nameDoctor: json["name_doctor"],
-        identificationCard: json["identification_card"],
-        signature: json["signature"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "identification_file": identificationFile,
         "name": name,
         "age": age,
         "gender": gender,
+        "record_h": recordH,
+        "record_p": recordP,
+        "record_pp": recordPp,
+        "current_condition": currentCondition,
         "interrogation": interrogation,
-        "vital_signs": List<dynamic>.from(vitalSigns!.map((x) => x.toJson())),
         "physical_exploration": physicalExploration,
-        "results": results,
+        "result": result,
+        "therapeutic": therapeutic,
         "diagnostic": diagnostic,
-        "treatment": treatment,
-        "pronostic": pronostic,
-        "name_doctor": nameDoctor,
-        "identification_card": identificationCard,
-        "signature": signature,
+        "vital_signs": List<dynamic>.from(vitalSigns!.map((x) => x.toJson())),
       };
 }
 

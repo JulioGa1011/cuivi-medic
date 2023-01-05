@@ -1,3 +1,5 @@
+import 'package:cuivi_medic/ui/home/screens/second/widgets/parameter.dart';
+import 'package:cuivi_medic/ui/models/clinic_history.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../main.dart';
@@ -5,7 +7,8 @@ import '../../../../../widgets/input_widget.dart';
 import '../screens/format.dart';
 
 class ClinicHistory extends StatefulWidget {
-  ClinicHistory({Key? key}) : super(key: key);
+  int patientId;
+  ClinicHistory({Key? key, required this.patientId}) : super(key: key);
 
   @override
   State<ClinicHistory> createState() => _ClinicHistoryState();
@@ -185,23 +188,23 @@ class _ClinicHistoryState extends State<ClinicHistory> {
           textInputType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 10),
-        InputWidget(
-          onSaved: (p0) {},
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSubmitted: (text) {},
-          textCapitalization: TextCapitalization.none,
-          validate: (text) {
-            if (text!.trim().isEmpty) {
-              return 'Este campo es requerido';
-            }
-            return null;
-          },
-          hintText: 'Signos vitales',
-          controller: _vitalSigns,
-          textInputAction: TextInputAction.next,
-          textInputType: TextInputType.emailAddress,
-        ),
-        const SizedBox(height: 10),
+        // InputWidget(
+        //   onSaved: (p0) {},
+        //   autovalidateMode: AutovalidateMode.onUserInteraction,
+        //   onSubmitted: (text) {},
+        //   textCapitalization: TextCapitalization.none,
+        //   validate: (text) {
+        //     if (text!.trim().isEmpty) {
+        //       return 'Este campo es requerido';
+        //     }
+        //     return null;
+        //   },
+        //   hintText: 'Signos vitales',
+        //   controller: _vitalSigns,
+        //   textInputAction: TextInputAction.next,
+        //   textInputType: TextInputType.emailAddress,
+        // ),
+
         InputWidget(
           onSaved: (p0) {},
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -271,6 +274,21 @@ class _ClinicHistoryState extends State<ClinicHistory> {
         ),
         const SizedBox(height: 10),
         Row(
+          children: [
+            Text('Signos vitales'),
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ParametersModal();
+                      });
+                },
+                icon: Icon(Icons.add))
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(
@@ -282,6 +300,22 @@ class _ClinicHistoryState extends State<ClinicHistory> {
             TextButton(
               child: const Text('Aceptar'),
               onPressed: () {
+                _identityController.clear();
+                _name.clear();
+                _age.clear();
+                _gender.clear();
+                _recordH.clear();
+                _recordP.clear();
+                _recordPp.clear();
+                _currentCondition.clear();
+                _interrogation.clear();
+                _vitalSigns.clear();
+                _physicalExploration.clear();
+                _results.clear();
+                _therapeutic.clear();
+                _diagnostic.clear();
+                // clinicHistory(patientId: widget
+                // .patientId, data: , type: type)
                 // showDialog(
                 //     context: context,
                 //     builder: (BuildContext context) {
