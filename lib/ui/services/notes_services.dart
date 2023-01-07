@@ -50,37 +50,15 @@ class NotesServices {
     }
   }
 
-  Future<Response> createNote(
-    context,
-    patientId,
-    id,
-    name,
-    age,
-    gender,
-    recordp,
-    recordH,
-    recordPp,
-    currentCondition,
-    interrogator,
-    vitalSign,
-    physicalExploration,
-    results,
-    terapeutic,
-    diagnostic,
-    type,
-  ) async {
+  Future<Response> createNote(context, json) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('access_token');
     var dio = DioConfiguration(context).createDio();
     dio.options.headers['Authorization'] = 'Bearer $accessToken';
     try {
-      Response response = await dio.post('medic/appointments', data: {
-        "patient_id": patientId,
-        "data": {"datos": "Aqui van todos los datos de la nota"},
-        "type": "Historic clinica"
-      }
-          // queryParameters: {'columns': '["name","phone"]',}
-          );
+      Response response =
+          await dio.post('medic/patients/medical-note', data: json);
+      logger.d(response);
       return response;
     } on DioError {
       rethrow;

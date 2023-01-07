@@ -1018,7 +1018,7 @@ class _AddPrescriptionState extends State<AddPrescription> {
                                     } else {
                                       logger.d('creando receta');
                                       MedicinesServices().createPrescriptions(
-                                          idPatient: int.parse(_patientId.text),
+                                          idPatient: _patientId.text,
                                           name: _name.text,
                                           email: _email.text,
                                           weight: double.parse(_weight.text),

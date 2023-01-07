@@ -54,7 +54,7 @@ class _AlertScreenFormatState extends State<AlertScreenFormat> {
                   },
                   items: <String>[
                     'Historia clínica',
-                    'Nota de evolucion',
+                    'Nota de evolución',
                     'Nota libre'
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
@@ -66,8 +66,8 @@ class _AlertScreenFormatState extends State<AlertScreenFormat> {
               ),
               dropdownValue == 'Historia clínica'
                   ? ClinicHistory(patientId: widget.patientId)
-                  : dropdownValue == 'Nota de evolucion'
-                      ? const Format()
+                  : dropdownValue == 'Nota de evolución'
+                      ? Format(patientId: widget.patientId)
                       : const FreeNote(),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.end,

@@ -1,24 +1,26 @@
 import 'dart:convert';
 
-clinicHistoryModel medicalNotesFromJson(String str) =>
-    clinicHistoryModel.fromJson(json.decode(str));
+import 'package:cuivi_medic/ui/models/vital_sign_model.dart';
 
-String medicalNotesToJson(clinicHistoryModel data) =>
+ClinicHistoryModel medicalNotesFromJson(String str) =>
+    ClinicHistoryModel.fromJson(json.decode(str));
+
+String medicalNotesToJson(ClinicHistoryModel data) =>
     json.encode(data.toJson());
 
-class clinicHistoryModel {
-  clinicHistoryModel({
-    required this.patientId,
+class ClinicHistoryModel {
+  ClinicHistoryModel({
+    this.patientId,
     required this.data,
-    required this.type,
+    this.type,
   });
 
-  int patientId;
+  int? patientId;
   Data data;
-  String type;
+  String? type;
 
-  factory clinicHistoryModel.fromJson(Map<String, dynamic> json) =>
-      clinicHistoryModel(
+  factory ClinicHistoryModel.fromJson(Map<String, dynamic> json) =>
+      ClinicHistoryModel(
         patientId: json["patient_id"],
         data: Data.fromJson(json["data"]),
         type: json["type"],
@@ -47,7 +49,7 @@ class Data {
     this.result,
     this.therapeutic,
     this.diagnostic,
-    this.vitalSigns,
+    this.vitalSign,
   });
 
   int? id;
@@ -64,7 +66,7 @@ class Data {
   String? result;
   String? therapeutic;
   String? diagnostic;
-  List<VitalSign>? vitalSigns;
+  List<VitalSign>? vitalSign;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -81,8 +83,6 @@ class Data {
         result: json["result"],
         therapeutic: json["therapeutic"],
         diagnostic: json["diagnostic"],
-        vitalSigns: List<VitalSign>.from(
-            json["vital_signs"].map((x) => VitalSign.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -100,38 +100,6 @@ class Data {
         "result": result,
         "therapeutic": therapeutic,
         "diagnostic": diagnostic,
-        "vital_signs": List<dynamic>.from(vitalSigns!.map((x) => x.toJson())),
-      };
-}
-
-class VitalSign {
-  VitalSign({
-    this.value,
-    this.clinicalParamId,
-    this.id,
-    this.formattedCreatedAt,
-    this.formattedUpdatedAt,
-  });
-
-  int? value;
-  int? clinicalParamId;
-  int? id;
-  String? formattedCreatedAt;
-  String? formattedUpdatedAt;
-
-  factory VitalSign.fromJson(Map<String, dynamic> json) => VitalSign(
-        value: json["value"],
-        clinicalParamId: json["clinical_param_id"],
-        id: json["id"],
-        formattedCreatedAt: json["formatted_created_at"],
-        formattedUpdatedAt: json["formatted_updated_at"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "value": value,
-        "clinical_param_id": clinicalParamId,
-        "id": id,
-        "formatted_created_at": formattedCreatedAt,
-        "formatted_updated_at": formattedUpdatedAt,
+        "vital_sign": vitalSign,
       };
 }

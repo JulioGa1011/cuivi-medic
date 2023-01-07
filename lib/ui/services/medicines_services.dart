@@ -24,7 +24,7 @@ class MedicinesServices {
   }
 
   Future<Response> createPrescriptions(
-      {required int idPatient,
+      {idPatient,
       required String name,
       required String email,
       required double weight,

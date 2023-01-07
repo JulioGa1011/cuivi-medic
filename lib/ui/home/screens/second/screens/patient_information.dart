@@ -342,7 +342,7 @@ class _PatientsInformationState extends State<PatientsInformation> {
                                   Center(
                                     child: TextButton(
                                         onPressed: () {},
-                                        child: Text(
+                                        child: const Text(
                                           "Reportar paciente",
                                           style: TextStyle(color: Colors.red),
                                         )),
